@@ -3,33 +3,30 @@ local wibox = require('wibox')
 
 local dpi = require('beautiful.xresources').get_dpi
 
+local date = wibox.widget.textclock("%A, %B %d, %Y")
 local time = wibox.widget.textclock("%I:%M%p")
-local date = wibox.widget.textclock("%a, %b %d")
-
-local clock = wibox.widget 
-{
-    layout = wibox.layout.align.verical,
-    time,
-    date
-}
+date.font = "lemon Medium 29"
+time.font = "lemon Medium 16"
 
 local clockbox = wibox {
-    border_width = dpi(2),
-    border_color = "#000000",
-    cursor = nil,
+    border_width = 5,
+    --border_color = "#0DABF0",
     visible = true,
     type = "desktop",
-    x = 20,
-    y = 20,
-    width = dpi(800),
-    height = dpi(600),
-    widget = clock,
-    shape_bounding = gears.shape.rectangle,
-    shape_clip = nil,
-    bg = "#0000FF",
-    bgimage = nil,
-    fg = "#00FF00",
-    shape = gears.shape.rectangle
+    x = 720,
+    y = 480,
+    width = 480,
+    height = 120,
+    bg = "#00000095",
+}
+
+clockbox : setup {
+    layout = wibox.layout.align.vertical,
+    {
+        layout = wibox.layout.align.vertical,
+        date,
+        time
+    }
 }
 
 return clockbox
