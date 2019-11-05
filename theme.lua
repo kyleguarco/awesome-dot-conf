@@ -1,7 +1,6 @@
 local gears = require('gears')
 local xresources = require('beautiful.xresources')
-
-local dpi = xresources.get_dpi
+local dpi = xresources.apply_dpi
 
 local theme = {}
 
@@ -10,21 +9,25 @@ theme.wallpaper = os.getenv("HOME") .. "/Pictures/Wallpapers/meadow.jpg"
 theme.font = "Fira Code 12"
 theme.icon_theme = "Faba"
 
-theme.notification_font = "Fira Code 8"
+theme.notification_font = "Fira Code Bold 8"
 theme.notificaion_border_width = 4
 theme.notification_spacing = 4
 
+theme.titlebar_font = "Fira Code Bold 8"
+theme.titlebar_bg = "#000020"
+
 theme.useless_gap   = 8
 theme.border_width  = 4
-theme.border_normal = "#BCABDA"
-theme.border_focus  = "#ABCBFC"
-theme.border_marked = "#CFBCBA"
+theme.border_normal = "#AB0AC0"
+theme.border_focus  = "#0ABAEB"
+theme.border_marked = "#BEABA0"
 
 do
     local theme_path = gears.filesystem.get_themes_dir()
     local default = gears.protected_call(dofile, theme_path .. "default/theme.lua")
 
-    --gears.table.crush(theme, default)
+    gears.table.crush(default, theme)
+    theme = default
 end
 
 return theme

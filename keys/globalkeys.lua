@@ -1,5 +1,6 @@
 local awful = require('awful')
 local gears = require('gears')
+local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup')
 
 local m = require("keys.modkey")
@@ -8,6 +9,15 @@ local mod, alt, ctrl, shft = m.m, m.a, m.c, m.s
 local function meta(grp, desc)
     desc = desc or "<>"
     return { group = grp, description = desc }
+end
+
+local function volume(action, msg)
+    awful.spawn.with_shell("amixer set Master " .. action)
+    naughty.notify { 
+        title = "Volume",
+        timeout = 0.5, 
+        text = msg 
+    }
 end
 
 local globalkeys = gears.table.join(
@@ -26,18 +36,18 @@ local globalkeys = gears.table.join(
         meta("tag", "go back")),
 
     awful.key({ mod       }, "j", function() awful.client.focus.byidx(1) end,
-        meta("client", "focus next by index")),
+        meta("client-g", "focus next by index")),
     awful.key({ mod       }, "k", function() awful.client.focus.byidx(-1) end,
-        meta("client", "focus previous by index")),
+        meta("client-g", "focus previous by index")),
 
     -- Layout manipulation
     awful.key({ mod, shft }, "j", function() awful.client.swap.byidx(1) end,
-        meta("client", "swap with next client by index")),
+        meta("client-g", "swap with next client by index")),
     awful.key({ mod, shft }, "k", function() awful.client.swap.byidx(-1) end,
-        meta("client", "swap with previous client by index")),
+        meta("client-g", "swap with previous client by index")),
 
     awful.key({ mod       }, "u", awful.client.urgent.jumpto,
-        meta("client", "jump to urgent client")),
+        meta("client-g", "jump to urgent client")),
 
     awful.key({ mod       }, "Tab",
         function()
@@ -46,7 +56,7 @@ local globalkeys = gears.table.join(
                 client.focus:raise()
             end
         end,
-        meta("client", "go back")),
+        meta("client-g", "go back")),
 
     awful.key({ mod       }, "n",
         function()
@@ -59,7 +69,7 @@ local globalkeys = gears.table.join(
             )
             end
         end,
-        meta("client", "restore minimized")),
+        meta("client-g", "restore minimized")),
 
     awful.key({ mod       }, "l",     function() awful.tag.incmwfact(0.05) end,
         meta("layout", "increase master width factor")),
@@ -84,12 +94,31 @@ local globalkeys = gears.table.join(
         meta("screen", "focus the previous screen")),
 
             -- Standard program
-    awful.key({ mod       }, "Return", function() awful.spawn("st") end,
+    awful.key({ mod       }, "Return", function() awful.spawn(config.terminal) end,
         meta("launcher", "open a terminal")),
 
     -- Prompt
-    awful.key({ mod       }, "r", function() awful.screen.focused().mypromptbox:run() end,
-        meta("launcher", "run prompt"))
+    awful.key({ mod       }, "r", function() awful.screen.focused().runprompt:run() end,
+        meta("launcher", "run prompt")),
+
+    -- Volume Keys
+    awful.key({ mod       }, "XF86AudioMute", 
+        function()
+            volume("toggle", "Muted")
+        end,
+        meta("audio", "mute")),
+
+    awful.key({ mod       }, "XF86AudioRaiseVolume", 
+        function()
+            volume("5%+", "Risen 5%")
+        end,
+        meta("audio", "raise volume")),
+
+    awful.key({ mod       }, "XF86AudioLowerVolume", 
+        function()
+            volume("5%-", "Lowered 5%")
+        end,
+        meta("audio", "lower volume"))
 )
 
 -- Bind all key numbers to tags.
