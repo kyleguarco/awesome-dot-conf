@@ -11,13 +11,22 @@ local function meta(grp, desc)
     return { group = grp, description = desc }
 end
 
-local function volume(action, msg)
+local function notify(title, msg)
+    local action = { timeout = 0.5 }
+    action.title = title
+    action.text = msg or nil
+
+    naughty.notify(action)
+end
+
+local function volume(action)
     awful.spawn.with_shell("amixer set Master " .. action)
-    naughty.notify { 
-        title = "Volume",
-        timeout = 0.5, 
-        text = msg 
-    }
+    notify("volume " .. action)
+end
+
+local function brightness(value)
+    awful.spawn.with_shell("xbacklight -inc " .. value)
+    notify("brightness " .. value)
 end
 
 local globalkeys = gears.table.join(
@@ -58,7 +67,7 @@ local globalkeys = gears.table.join(
         end,
         meta("client-g", "go back")),
 
-    awful.key({ mod       }, "n",
+    awful.key({ mod, ctrl }, "n",
         function()
             local c = awful.client.restore()
             -- Focus restored client
@@ -102,29 +111,34 @@ local globalkeys = gears.table.join(
         meta("launcher", "run prompt")),
 
     -- Volume Keys
-    awful.key({ mod       }, "XF86AudioMute", 
-        function()
-            volume("toggle", "Muted")
-        end,
-        meta("audio", "mute")),
 
-    awful.key({ mod       }, "XF86AudioRaiseVolume", 
-        function()
-            volume("5%+", "Risen 5%")
-        end,
+    awful.key({ mod       }, "XF86AudioRaiseVolume", function() volume("5%+") end,
         meta("audio", "raise volume")),
 
-    awful.key({ mod       }, "XF86AudioLowerVolume", 
-        function()
-            volume("5%-", "Lowered 5%")
-        end,
-        meta("audio", "lower volume"))
+    awful.key({ mod       }, "XF86AudioLowerVolume", function() volume("5%-") end,
+        meta("audio", "lower volume")),
+    
+    awful.key({ mod       }, "XF86AudioMute", function() volume("toggle") end,
+        meta("audio", "mute")),
+    
+    -- Brightness Keys
+
+    -- WARNING: A dirty fix was implemented for this. Refer to this forum
+    -- for more info: https://unix.stackexchange.com/a/482413/248296
+
+    -- xf86-video-intel was also installed for this functionality.
+    
+    awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("5") end,
+        meta("display", "increase brightness")),
+    
+    awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-5") end,
+        meta("display", "decrease brightness"))
 )
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 1, 4 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ mod            }, "#" .. i + 9,
@@ -159,7 +173,7 @@ for i = 1, 9 do
                 end
             end,
             meta("tag", "move focused client to tag #" .. i)),
-        
+
         -- Toggle tag on focused client.
         awful.key({ mod, ctrl, shft }, "#" .. i + 9,
             function()
@@ -170,7 +184,19 @@ for i = 1, 9 do
                     end
                 end
             end,
-            meta("tag", "toggle focused client on tag #" .. i))
+            meta("tag", "toggle focused client on tag #" .. i)),
+
+        -- Move client to tag.
+        awful.key({ mod, alt      }, "#" .. i + 9,
+            function()
+                if client.focus then
+                    local screen = screen[i]
+                    if screen then
+                        client.focus:move_to_screen(i)
+                    end
+                end
+            end,
+            meta("screen", "move focused client to screen #" .. i))
     )
 end
 

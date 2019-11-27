@@ -25,6 +25,7 @@ end
 -- }}}
 
 -- Themes define colours, icons, font and wallpapers.
+-- Required as a global table for on-the-fly changes with 'awesome-client'
 theme = require("theme") 
 beautiful.init(theme)
 

@@ -18,23 +18,22 @@ local clientkeys = gears.table.join(
         end,
         meta "toggle fullscreen"),
 
-    awful.key({ mod, shft }, "c", 
-        function(c) c:kill() end,
+    awful.key({ mod, shft }, "c", function(c) c:kill() end,
         meta "close"),
 
-    --awful.key({ mod, ctrl }, "v", awful.client.floating.toggle,
-        --meta "toggle floating"),
+    awful.key({ mod, ctrl }, "v", 
+        function(c)
+            c.floating = not c.floating
+        end,
+        meta "toggle floating"),
 
-    awful.key({ mod, ctrl }, "Return", 
-        function(c) c:swap(awful.client.getmaster()) end,
+    awful.key({ mod, ctrl }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         meta "move to master"),
 
-    awful.key({ mod       }, "o", 
-        function(c) c:move_to_screen() end,
+    awful.key({ mod       }, "o", function(c) c:move_to_screen() end,
         meta "move to screen"),
 
-    awful.key({ mod       }, "t",
-        function(c) c.ontop = not c.ontop end,
+    awful.key({ mod       }, "t", function(c) c.ontop = not c.ontop end,
         meta "toggle keep on top"),
 
     awful.key({ mod       }, "n",
