@@ -1,8 +1,8 @@
 local awful = require('awful')
 local gears = require('gears')
 
-local m = require("keys.modkey")
-local mod = m.m
+-- Modifiers
+local mod = config.modkey.m
 
 return gears.table.join(
     awful.button({ }, 1, function (c)

@@ -3,8 +3,8 @@ local gears = require('gears')
 local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup')
 
-local m = require("keys.modkey")
-local mod, alt, ctrl, shft = m.m, m.a, m.c, m.s
+-- Modifiers
+local mod, alt, ctrl, shft = config.modkey.m, config.modkey.a, config.modkey.c, config.modkey.s
 
 local function meta(grp, desc)
     desc = desc or "<>"

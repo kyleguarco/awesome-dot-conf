@@ -6,7 +6,8 @@ local naughty = require('naughty')
 config = {
     -- "themefile" in module notation
     themefile = "theme.angel",
-    terminal = "st"
+    terminal = "st",
+    modkeys = { m = "Mod4", a = "Mod1", c = "Control", s = "Shift" }
 }
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
