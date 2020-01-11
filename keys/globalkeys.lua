@@ -102,13 +102,17 @@ local globalkeys = gears.table.join(
     awful.key({ mod, ctrl }, "k", function() awful.screen.focus_relative(-1) end,
         meta("screen", "focus the previous screen")),
 
-            -- Standard program
+    -- Standard program
     awful.key({ mod       }, "Return", function() awful.spawn(config.terminal) end,
         meta("launcher", "open a terminal")),
 
     -- Prompt
     awful.key({ mod       }, "r", function() awful.screen.focused().runprompt:run() end,
         meta("launcher", "run prompt")),
+
+    -- HUD
+    awful.key({ mod       }, "v", function() awful.screen.focused().hud:toggle() end,
+        meta("screen", "show hud")),
 
     -- Volume Keys
 
@@ -128,10 +132,10 @@ local globalkeys = gears.table.join(
 
     -- xf86-video-intel was also installed for this functionality.
     
-    awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("5") end,
+    awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("2.5") end,
         meta("display", "increase brightness")),
     
-    awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-5") end,
+    awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
         meta("display", "decrease brightness"))
 )
 

@@ -7,16 +7,14 @@ local w = { mt = {} }
 local function new(args)
     local default = {
         border_width = beautiful.wibox_border_width or 5,
-        width = beautiful.wibox_width or 480,
-        height = beautiful.wibox_height or 120,
         bg = beautiful.wibox_bg or "#00000095",
-        type = "desktop",
-        x = 720,
-        y = 480,
+        width = 480,
+        height = 120,
+        type = "normal"
     }
     
-    if args then gears.table.crush(args, default) end
-    return wibox(args)
+    if args then gears.table.crush(default, args) end
+    return wibox(default)
 end
 
 function w.mt:__call(...)
