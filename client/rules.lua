@@ -39,6 +39,7 @@ return {
             -- and the name shown there might not match defined rules here.
             name = {
                 "Event Tester",  -- xev.
+				"Picture-in-Picture", -- Firefox PIP Feature (72.0.1)
             },
             role = {
                 "AlarmWindow",  -- Thunderbird's calendar.
@@ -46,13 +47,23 @@ return {
                 "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
             }
         }, 
-        properties = { floating = true },
-        callback = function(c) awful.placement.centered(c) end
+        properties = { 
+            floating = true
+        },
+    },
+
+    -- Popup dialogs
+    { rule_any = { type = { "dialog" } },
+        properties = { 
+            placement = awful.placement.centered
+        }
     },
 
     -- Add titlebars to normal clients
     { rule_any = { type = { "normal" } }, 
-        properties = { titlebars_enabled = true }
+        properties = { 
+            titlebars_enabled = true 
+        }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

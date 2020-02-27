@@ -111,8 +111,8 @@ local globalkeys = gears.table.join(
         meta("launcher", "run prompt")),
 
     -- HUD
-    awful.key({ mod       }, "v", function() awful.screen.focused().hud:toggle() end,
-        meta("screen", "show hud")),
+    --awful.key({ mod       }, "v", function() awful.screen.focused().tasklist:popup() end,
+    --  meta("screen", "show hud")),
 
     -- Volume Keys
 
@@ -123,7 +123,7 @@ local globalkeys = gears.table.join(
         meta("audio", "lower volume")),
     
     awful.key({ mod       }, "XF86AudioMute", function() volume("toggle") end,
-        meta("audio", "mute")),
+        meta("audio", "mute"))
     
     -- Brightness Keys
 
@@ -132,11 +132,11 @@ local globalkeys = gears.table.join(
 
     -- xf86-video-intel was also installed for this functionality.
     
-    awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("2.5") end,
-        meta("display", "increase brightness")),
+    --awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("2.5") end,
+    --  meta("display", "increase brightness")),
     
-    awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
-        meta("display", "decrease brightness"))
+    --awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
+    --  meta("display", "decrease brightness"))
 )
 
 -- Bind all key numbers to tags.

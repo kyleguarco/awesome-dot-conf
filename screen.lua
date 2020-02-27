@@ -1,5 +1,6 @@
 local awful = require('awful')
 local gears = require('gears')
+local wibox = require('wibox')
 local beautiful = require('beautiful')
 
 local function set_wallpaper(s)
@@ -23,15 +24,15 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
-
-    --s.hud = require("widget.hud")
+    
+    s.sysbar = require("widget.systray")
 
     s.runprompt = awful.widget.prompt()
 
     -- Create a promptbox for each screen
     s.runpromptpopup = awful.popup {
         widget = s.runprompt,
-        forced_height = 100,
-        border_color = "#002090"
+        placement = awful.placement.top,
+        ontop = true
     }
 end)

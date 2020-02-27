@@ -7,7 +7,7 @@ local theme = {}
 theme.wallpaper = os.getenv("HOME") .. "/Pictures/Wallpapers/meadow.jpg"
 
 theme.font = "Fira Code 12"
-theme.icon_theme = "Faba"
+theme.icon_theme = "Numix Circle"
 
 theme.notification_font = "Fira Code Bold 8"
 theme.notificaion_border_width = dpi(4)

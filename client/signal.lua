@@ -32,7 +32,7 @@ client.connect_signal("request::titlebars", function(c)
     )
 
     local titlebar = awful.titlebar(c, { 
-        font = beautiful.titlebar_font or "Fira Code 12", 
+        font = beautiful.titlebar_font or "Fira Code Medium 12", 
         position = "bottom" }
     )
     

@@ -7,13 +7,13 @@ config = {
     -- "themefile" in module notation
     themefile = "theme.angel",
     terminal = "st",
-    modkeys = { m = "Mod4", a = "Mod1", c = "Control", s = "Shift" }
+    modkey = { m = "Mod4", a = "Mod1", c = "Control", s = "Shift" }
 }
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max.fullscreen,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
