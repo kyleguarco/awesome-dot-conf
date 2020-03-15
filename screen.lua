@@ -25,8 +25,6 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
     
-    s.sysbar = require("widget.systray")
-
     s.runprompt = awful.widget.prompt()
 
     -- Create a promptbox for each screen

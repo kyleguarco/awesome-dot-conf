@@ -44,6 +44,6 @@ root.buttons(require("keys.globalbuttons"))
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = require(".client.rules")
 
--- Connects clients to appropriae signals
+-- Connects clients to appropriate signals
 require(".client.signal")
 -- }}}
