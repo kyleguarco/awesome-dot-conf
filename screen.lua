@@ -15,6 +15,17 @@ local function set_wallpaper(s)
     end
 end
 
+local function placement(widget, func, offset)
+    -- If offset isn't even present, return
+    if not offset then return end
+    -- If one element in the table isn't preset, return 0
+    setmetatable(offset, { __index = function() return 0 end })
+
+    local new_geom = func(widget)
+    widget.x = new_geom.x + offset.x
+    widget.y = new_geom.y + offset.y
+end
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -24,13 +35,22 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
-    
-    s.runprompt = awful.widget.prompt()
 
-    -- Create a promptbox for each screen
-    s.runpromptpopup = awful.popup {
-        widget = s.runprompt,
-        placement = awful.placement.top,
-        ontop = true
-    }
+    -- Widget setup
+    if config.widget.battery then
+        s.battery_widget = require("widget.battery")
+        placement(s.battery_widget, awful.placement.top, {y = 10})
+    end 
 end)
+
+-- Create a timer to emit the update signal for widgets
+if config.util.screen_updates then
+    gears.timer {
+        timeout   = config.util.screen_updates_tick,
+        call_now  = true,
+        autostart = true,
+        callback  = function()
+            screen.emit_signal("ws::update")
+        end
+    }
+end

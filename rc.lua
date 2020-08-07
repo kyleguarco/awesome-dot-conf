@@ -1,12 +1,9 @@
-local gears = require("gears")
-local awful = require("awful")
-require("awful.autofocus")
-local wibox = require("wibox")
-local beautiful = require("beautiful")
-local naughty = require("naughty")
-
--- Load personal configuration
-require("config")
+local gears = require('gears')
+local awful = require('awful')
+require('awful.autofocus')
+local wibox = require('wibox')
+local beautiful = require('beautiful')
+local naughty = require('naughty')
 
 -- {{{ Handle runtime errors after startup
 do
@@ -24,26 +21,38 @@ do
 end
 -- }}}
 
+-- Load the global config table
+require("config")
+
+-- Load various utility functions globally (see util.init)
+require("util")
+
+-- Load the new default options for awesome libraries
+require("defaults")
+
 -- {{{ Theme Initialization
 -- Themes define colours, icons, font and wallpapers.
 -- Required as a global table for on-the-fly changes with 'awesome-client'
-theme = require(config.themefile) 
+theme = require("theme")
 beautiful.init(theme)
 -- }}}
 
 -- {{{ Screen Initialization (Creates tags and widgets)
-require(".screen")
+require("screen")
 -- }}}
 
 -- {{{ Global input bindings
-root.keys(require("keys.globalkeys"))
-root.buttons(require("keys.globalbuttons"))
+local keys_keyboard = require("keys.globalkeys")
+local keys_mouse = require("keys.globalbuttons")
+root.keys(keys_keyboard)
+root.buttons(keys_mouse)
 -- }}}
 
 -- {{{ Client Initialization
 -- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = require(".client.rules")
+local client_rules = require("client.rules")
+awful.rules.rules = client_rules
 
 -- Connects clients to appropriate signals
-require(".client.signal")
+require("client.signal")
 -- }}}

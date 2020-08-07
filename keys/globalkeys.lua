@@ -12,7 +12,7 @@ local function meta(grp, desc)
 end
 
 local function notify(title, msg)
-    local action = { timeout = 0.5 }
+    local action = { timeout = 2 }
     action.title = title
     action.text = msg or nil
 
@@ -25,7 +25,7 @@ local function volume(action)
 end
 
 local function brightness(value)
-    awful.spawn.with_shell("xbacklight -inc " .. value)
+    --awful.spawn.with_shell("xbacklight -inc " .. value)
     notify("brightness " .. value)
 end
 
@@ -66,7 +66,7 @@ local globalkeys = gears.table.join(
             end
         end,
         meta("client-g", "go back")),
-
+    
     awful.key({ mod, ctrl }, "n",
         function()
             local c = awful.client.restore()
@@ -79,7 +79,10 @@ local globalkeys = gears.table.join(
             end
         end,
         meta("client-g", "restore minimized")),
-
+    
+    awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -show window -show-icons") end,
+        meta("client-g", "Show the rofi window switcher")),
+    
     awful.key({ mod       }, "l",     function() awful.tag.incmwfact(0.05) end,
         meta("layout", "increase master width factor")),
     awful.key({ mod       }, "h",     function() awful.tag.incmwfact(-0.05) end,
@@ -107,8 +110,8 @@ local globalkeys = gears.table.join(
         meta("launcher", "open a terminal")),
 
     -- Prompt
-    awful.key({ mod       }, "r", function() awful.screen.focused().runprompt:run() end,
-        meta("launcher", "run prompt")),
+    awful.key({ mod       }, "r", function() awful.spawn("rofi -show drun -show-icons") end,
+        meta("launcher", "rofi run prompt")),
 
     -- HUD
     --awful.key({ mod       }, "v", function() awful.screen.focused().tasklist:popup() end,
@@ -116,14 +119,14 @@ local globalkeys = gears.table.join(
 
     -- Volume Keys
 
-    awful.key({ mod       }, "XF86AudioRaiseVolume", function() volume("5%+") end,
+    awful.key({           }, "XF86AudioRaiseVolume", function() volume("5%+") end,
         meta("audio", "raise volume")),
 
-    awful.key({ mod       }, "XF86AudioLowerVolume", function() volume("5%-") end,
+    awful.key({           }, "XF86AudioLowerVolume", function() volume("5%-") end,
         meta("audio", "lower volume")),
     
-    awful.key({ mod       }, "XF86AudioMute", function() volume("toggle") end,
-        meta("audio", "mute"))
+    awful.key({           }, "XF86AudioMute", function() volume("toggle") end,
+        meta("audio", "mute")),
     
     -- Brightness Keys
 
@@ -132,11 +135,11 @@ local globalkeys = gears.table.join(
 
     -- xf86-video-intel was also installed for this functionality.
     
-    --awful.key({ mod       }, "XF86MonBrightnessUp", function() brightness("2.5") end,
-    --  meta("display", "increase brightness")),
+    awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
+    meta("display", "increase brightness")),
     
-    --awful.key({ mod       }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
-    --  meta("display", "decrease brightness"))
+    awful.key({           }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
+    meta("display", "decrease brightness"))
 )
 
 -- Bind all key numbers to tags.

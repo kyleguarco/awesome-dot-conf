@@ -15,7 +15,10 @@ return {
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+            maximized_horizontal = false,
+            maximized_vertical = false,
+            maximized = false,
         }
     },
 
@@ -30,9 +33,8 @@ return {
             class = {
                 "Arandr",
                 "Wpa_gui",
-                "gimp",
-                "Gimp",
-                "st"
+                "gimp-2.10",
+                "Gimp-2.10",
             },
 
             -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -41,6 +43,7 @@ return {
                 "Event Tester",  -- xev.
 				"Picture-in-Picture", -- Firefox PIP Feature (72.0.1)
             },
+
             role = {
                 "AlarmWindow",  -- Thunderbird's calendar.
                 "ConfigManager",  -- Thunderbird's about:config.
@@ -48,7 +51,8 @@ return {
             }
         }, 
         properties = { 
-            floating = true
+            floating = true,
+            placement = awful.placement.centered
         },
     },
 
