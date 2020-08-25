@@ -1,2 +1,2 @@
 # Utility
-Shell scripts that return output to various widgets
+Lua scripts that contain useful functions for wrapping and obtaining filesystem paths.

@@ -3,7 +3,6 @@
 -- Defines a global funcion 'script' that returns he path of a shell script.
 -- Useful for widgets with 'os.capture' to grab the output of a command for display.
 --
-local naughty = require('naughty')
 
 function script(name, args)
     local cmd = get_config_dir().."script/"..name..".sh "
