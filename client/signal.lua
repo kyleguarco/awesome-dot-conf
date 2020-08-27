@@ -32,9 +32,9 @@ client.connect_signal("request::titlebars", function(c)
     )
 
     local titlebar = awful.titlebar(c, { 
-        font = beautiful.titlebar_font or "Fira Code Medium 12", 
-        position = "bottom" }
-    )
+        font = beautiful.titlebar_font or beautiful.font, 
+        position = "bottom" 
+    })
     
     titlebar : setup {
         nil,
@@ -47,7 +47,9 @@ client.connect_signal("request::titlebars", function(c)
             layout = wibox.layout.flex.horizontal
         },
         {
-            awful.titlebar.widget.closebutton(c),
+            awful.titlebar.widget.stickybutton(c),
+			awful.titlebar.widget.minimizebutton(c),
+			awful.titlebar.widget.closebutton(c),
 
             layout = wibox.layout.fixed.horizontal
         },

@@ -24,7 +24,10 @@ return {
         properties = default_properties
     },
 
-    -- Add titlebars to normal clients
+    {	rule = { class = "URxvt" },
+    	properties = { size_hints_honor = false }
+    },
+
     {   rule_any = { type = { "normal" } }, 
         properties = { 
             titlebars_enabled = true 
@@ -57,12 +60,13 @@ return {
                 "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
             }
         }, 
-        except = {
+        except_any = {
             instance = { 
                 -- Make an exception to the GIMP editor itself
                 "gimp-2.10",
-                -- ... and the Godot editor
+                -- ... and the Godot editor windows
                 "Godot_Editor",
+                "Godot_ProjectList",
             }
         },
         properties = { 

@@ -14,7 +14,7 @@ local dpi = xresources.apply_dpi
 local theme = {
     wallpaper = os.getenv("HOME") .. "/Pictures/wallpapers/moonlit.jpg",
 
-    font = "Charybdis 18",
+    font = "lemon 12",
     icon_theme = "Faba",
 
     separator_thinkness = 5,
@@ -27,9 +27,15 @@ local theme = {
     titlebar_bg = "#001020",
     titlebar_close_button_focus = get_config_dir().."assets/window_close.png",
     titlebar_close_button_normal = get_config_dir().."assets/window_close.png",
+ 	titlebar_minimize_button_focus = get_config_dir().."assets/window_minimize.png",
+	titlebar_minimize_button_normal = get_config_dir().."assets/window_minimize.png",
+	titlebar_sticky_button_focus_active = get_config_dir().."assets/window_sticky_active.png",
+	titlebar_sticky_button_normal_active = get_config_dir().."assets/window_sticky_active.png",
+	titlebar_sticky_button_focus_inactive = get_config_dir().."assets/window_sticky_inactive.png",
+	titlebar_sticky_button_normal_inactive = get_config_dir().."assets/window_sticky_inactive.png",
 
-    useless_gap   = dpi(4),
-    border_width  = dpi(2),
+    useless_gap   = dpi(2),
+    border_width  = dpi(4),
     --border_normal = "#AB0AC0",
     --border_focus  = "#0ABAEB",
     --border_marked = "#BEABA0",

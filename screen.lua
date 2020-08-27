@@ -3,6 +3,9 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
+-- placement(widget, func, offset)
+local placement = require("util.geom").placement
+
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -15,17 +18,6 @@ local function set_wallpaper(s)
     end
 end
 
-local function placement(widget, func, offset)
-    -- If offset isn't even present, return
-    if not offset then return end
-    -- If one element in the table isn't preset, return 0
-    setmetatable(offset, { __index = function() return 0 end })
-
-    local new_geom = func(widget)
-    widget.x = new_geom.x + offset.x
-    widget.y = new_geom.y + offset.y
-end
-
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -35,6 +27,8 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+
+    --s.display = require("widget.display").wibox
 
     -- Widget setup
     if config.widget.battery then
