@@ -1,7 +1,7 @@
 #!/bin/sh
 # grab_battery.sh
-# 
-# Returns the battery charge as output
+#
+# Returns the battery charge as text output
 
 BATFILE=$1
 

@@ -12,7 +12,7 @@ local xresources = require('beautiful.xresources')
 local dpi = xresources.apply_dpi
 
 local theme = {
-    wallpaper = os.getenv("HOME") .. "/Pictures/wallpapers/moonlit.jpg",
+    wallpaper = os.getenv("HOME") .. "/Pictures/wallpapers/mechanical_keyboards.png",
 
     font = "lemon 12",
     icon_theme = "Faba",
@@ -34,8 +34,8 @@ local theme = {
 	titlebar_sticky_button_focus_inactive = get_config_dir().."assets/window_sticky_inactive.png",
 	titlebar_sticky_button_normal_inactive = get_config_dir().."assets/window_sticky_inactive.png",
 
-    useless_gap   = dpi(2),
-    border_width  = dpi(4),
+    useless_gap   = dpi(4),
+    border_width  = dpi(2),
     --border_normal = "#AB0AC0",
     --border_focus  = "#0ABAEB",
     --border_marked = "#BEABA0",

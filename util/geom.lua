@@ -1,11 +1,11 @@
--- geom.lua (Local scope only)
--- 
+-- geom.lua (Local scope)
+--
 -- Uses the geometry returned from any 'awful.placement' function and
 -- applies an offset.
 
 local geom = {}
 
-function placement(widget, func, offset)
+function geom.placement(widget, func, offset)
     -- If offset isn't even present, return
     if not offset then return end
     -- If one element in the table isn't preset, return 0

@@ -19,7 +19,7 @@ do
 end
 -- }}}
 
--- Load the global config table
+-- Load the global config
 require("config")
 
 -- Load various utility functions globally (see util.init)

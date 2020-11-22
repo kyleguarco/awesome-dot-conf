@@ -3,8 +3,9 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
--- placement(widget, func, offset)
-local placement = require("util.geom").placement
+-- placement(wibox, func, offset)
+local geom = require("util.geom")
+local place = geom.placement
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -28,13 +29,12 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
-    --s.display = require("widget.display").wibox
-
     -- Widget setup
-    if config.widget.battery then
-        s.battery_widget = require("widget.battery")
-        placement(s.battery_widget, awful.placement.top, {y = 10})
-    end 
+    if config.widget.enable then
+        s.widget_display = require("widgets.display")
+        s.widget_display.x = s.geometry.width / 8
+        s.widget_display.y = s.geometry.height / 8
+    end
 end)
 
 -- Create a timer to emit the update signal for widgets
