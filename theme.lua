@@ -1,7 +1,7 @@
 -- theme.lua
 --
--- This theme file should only touch widget components of the window manager, 
--- not how windows are designed. This theme file should only define what icons 
+-- This theme file should only touch widget components of the window manager,
+-- not how windows are designed. This theme file should only define what icons
 -- are used for different widgets.
 --
 -- Anything else should go into the Xresources file (colors, window icon themes, fonts...)
@@ -42,6 +42,11 @@ local theme = {
     border_normal = "#100525",
     border_focus  = "#605075",
     border_marked = "#BEABA0",
+
+    -- Custom theme variables
+    widget_display_size = 50,
+    widget_battery_fg = "#10A010",
+    widget_battery_bg = "#105010",
 }
 
 -- Merge the default theme with the custom one.

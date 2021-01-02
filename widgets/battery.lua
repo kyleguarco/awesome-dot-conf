@@ -5,8 +5,10 @@ local bar_widget = wibox.widget {
     max_value = 100,
     value = 0,
     paddings = 1,
-    border_width = 10,
-    border_color = beautiful.border_color or "#101010",
+    border_width = beautiful.border_width,
+    border_color = beautiful.border_normal,
+    color = beautiful.widget_battery_fg or "#105010",
+    background_color = beautiful.widget_battery_bg or "#A01020",
     widget = wibox.widget.progressbar,
 }
 

@@ -3,10 +3,6 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
--- placement(wibox, func, offset)
-local geom = require("util.geom")
-local place = geom.placement
-
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -31,9 +27,9 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Widget setup
     if config.widget.enable then
+        local align = config.widget.display.layout_func
         s.widget_display = require("widgets.display")
-        s.widget_display.x = s.geometry.width / 8
-        s.widget_display.y = s.geometry.height / 8
+        align(s, s.widget_display)
     end
 end)
 

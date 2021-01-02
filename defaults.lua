@@ -1,3 +1,7 @@
+-- defaults.lua
+--
+-- This is loaded in rc.lua to load the defaults for some services in awesome.
+
 local awful = require('awful')
 local gears = require('gears')
 local naughty = require('naughty')

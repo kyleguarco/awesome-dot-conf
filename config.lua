@@ -3,13 +3,20 @@
 -- For customizing small parts of the configuration, without having to
 -- dig deep into the source code to change it.
 
+local geom = require("util.geom")
+
 config = {}
 
 config.terminal = "urxvt"
 config.modkey = { m = "Mod4", a = "Mod1", c = "Control", s = "Shift" }
 
 config.widget = {}
-config.widget.enable = false
+config.widget.enable = true
+
+-- The widget that displays the screen widgets
+config.widget.display = {}
+config.widget.display.layout_func = geom.screen.top
+
 config.widget.battery = {}
 config.widget.battery.enable = true
 

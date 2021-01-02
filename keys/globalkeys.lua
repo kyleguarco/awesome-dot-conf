@@ -66,23 +66,23 @@ local globalkeys = gears.table.join(
             end
         end,
         meta("client-g", "go back")),
-    
+
     awful.key({ mod, ctrl }, "n",
         function()
             local c = awful.client.restore()
             -- Focus restored client
             if c then
             c:emit_signal(
-                "request::activate", "key.unminimize", 
+                "request::activate", "key.unminimize",
                 {raise = true}
             )
             end
         end,
         meta("client-g", "restore minimized")),
-    
+
     awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -show window -show-icons") end,
         meta("client-g", "Show the rofi window switcher")),
-    
+
     awful.key({ mod       }, "l",     function() awful.tag.incmwfact(0.05) end,
         meta("layout", "increase master width factor")),
     awful.key({ mod       }, "h",     function() awful.tag.incmwfact(-0.05) end,
@@ -114,8 +114,8 @@ local globalkeys = gears.table.join(
         meta("launcher", "rofi run prompt")),
 
     -- HUD
-    --awful.key({ mod       }, "v", function() awful.screen.focused().tasklist:popup() end,
-    --  meta("screen", "show hud")),
+    awful.key({ mod       }, "v", function() screen.emit_signal("ws::show_display") end,
+        meta("screen", "show hud")),
 
     -- Volume Keys
 
@@ -124,20 +124,20 @@ local globalkeys = gears.table.join(
 
     awful.key({           }, "XF86AudioLowerVolume", function() volume("5%-") end,
         meta("audio", "lower volume")),
-    
+
     awful.key({           }, "XF86AudioMute", function() volume("toggle") end,
         meta("audio", "mute")),
-    
+
     -- Brightness Keys
 
     -- WARNING: A dirty fix was implemented for this. Refer to this forum
     -- for more info: https://unix.stackexchange.com/a/482413/248296
 
     -- xf86-video-intel was also installed for this functionality.
-    
+
     awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
     meta("display", "increase brightness")),
-    
+
     awful.key({           }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
     meta("display", "decrease brightness"))
 )
@@ -157,7 +157,7 @@ for i = 1, 4 do
                 end
             end,
             meta("tag", "view tag #" .. i)),
-        
+
         -- Toggle tag display.
         awful.key({ mod, ctrl      }, "#" .. i + 9,
             function()
@@ -168,7 +168,7 @@ for i = 1, 4 do
                 end
             end,
             meta("tag", "toggle tag #" .. i)),
-        
+
         -- Move client to tag.
         awful.key({ mod, shft      }, "#" .. i + 9,
             function()
