@@ -24,13 +24,18 @@ local battery_widget = wibox.widget {
     layout = wibox.layout.stack
 }
 
-screen.connect_signal("ws::update", function()
+local function on_update()
     -- Updates the battery widget
-    os.capture(script("grab_battery", config.util.batteryfile),
-    function(out)
-        text_widget.text = out
-        bar_widget.value = tonumber(out)
-    end)
-end)
+    if battery_widget.visible then
+        os.capture(script("grab_battery", config.util.batteryfile),
+        function(out)
+            -- Pango markup
+            text_widget.markup = '<span color="#000000">'.. out .. '</span>'
+            bar_widget.value = tonumber(out)
+        end)
+    end
+end
+
+screen.connect_signal("ws::update", on_update)
 
 return battery_widget

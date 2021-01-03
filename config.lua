@@ -20,6 +20,12 @@ config.widget.display.layout_func = geom.screen.top
 config.widget.battery = {}
 config.widget.battery.enable = true
 
+config.widget.systray = {}
+config.widget.systray.enable = true
+
+config.widget.time = {}
+config.widget.time.enable = true
+
 config.util = {}
 config.util.screen_updates = config.widget.enable
 config.util.screen_updates_tick = 20

@@ -114,7 +114,11 @@ local globalkeys = gears.table.join(
         meta("launcher", "rofi run prompt")),
 
     -- HUD
-    awful.key({ mod       }, "v", function() screen.emit_signal("ws::show_display") end,
+    awful.key({ mod       }, "v",
+        function()
+            screen.emit_signal("ws::update")
+            screen.emit_signal("ws::show_display")
+        end,
         meta("screen", "show hud")),
 
     -- Volume Keys

@@ -44,7 +44,7 @@ local theme = {
     border_marked = "#BEABA0",
 
     -- Custom theme variables
-    widget_display_size = 50,
+    widget_display_size = 20,
     widget_battery_fg = "#10A010",
     widget_battery_bg = "#105010",
 }
