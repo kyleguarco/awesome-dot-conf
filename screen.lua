@@ -1,3 +1,7 @@
+-- screen.lua (global scope)
+--
+-- Loaded in rc.lua to set up all the screens connected to the computer
+
 local awful = require('awful')
 local gears = require('gears')
 local wibox = require('wibox')
@@ -15,8 +19,15 @@ local function set_wallpaper(s)
     end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+-- `drawable`: A wibox; `placement`: An `awful.placement` function
+local function fit(s, drawable, placement)
+    drawable.s = s
+    placement(drawable, {
+        parent = s,
+        attach = true,
+        honor_padding = true,
+    })
+end
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
@@ -26,21 +37,19 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Widget setup
-    if config.widget.enable then
-        local align = config.widget.display.layout_func
-        s.widget_display = require("widgets.display")
-        align(s, s.widget_display)
-    end
+    widget_battery = require("widgets.battery")(require("widgets.time"))
+    fit(s, widget_battery, awful.placement.centered)
 end)
 
--- Create a timer to emit the update signal for widgets
-if config.util.screen_updates then
-    gears.timer {
-        timeout   = config.util.screen_updates_tick,
-        call_now  = true,
-        autostart = true,
-        callback  = function()
-            screen.emit_signal("ws::update")
-        end
-    }
-end
+-- Create a timer to emit an update signal for widgets
+gears.timer {
+    timeout = 5,
+    call_now = true,
+    autostart = true,
+    callback = function()
+        screen.emit_signal("ws::update")
+    end
+}
+
+-- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+screen.connect_signal("property::geometry", set_wallpaper)

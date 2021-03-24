@@ -1,4 +1,4 @@
--- defaults.lua
+-- defaults.lua (global scope)
 --
 -- This is loaded in rc.lua to load the defaults for some services in awesome.
 

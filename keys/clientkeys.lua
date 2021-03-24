@@ -3,7 +3,8 @@ local gears = require('gears')
 local hotkeys_popup = require('awful.hotkeys_popup')
 
 -- Modifiers
-local mod, alt, ctrl, shft = config.modkey.m, config.modkey.a, config.modkey.c, config.modkey.s
+local modkeys = require("keys.modkey")
+local mod, alt, ctrl, shft = modkeys.m, modkeys.a, modkeys.c, modkeys.s
 
 local function meta(desc)
     desc = desc or "<>"
@@ -11,7 +12,7 @@ local function meta(desc)
 end
 
 local clientkeys = gears.table.join(
-    awful.key({ mod       }, "f", 
+    awful.key({ mod       }, "f",
         function(c)
             c.fullscreen = not c.fullscreen
             c:raise()
@@ -21,7 +22,7 @@ local clientkeys = gears.table.join(
     awful.key({ mod, shft }, "c", function(c) c:kill() end,
         meta "close"),
 
-    awful.key({ mod, ctrl }, "v", 
+    awful.key({ mod, ctrl }, "v",
         function(c)
             c.floating = not c.floating
         end,

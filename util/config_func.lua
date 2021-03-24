@@ -1,4 +1,4 @@
--- config_func.lua (Global scope)
+-- util/config_func.lua (global scope)
 --
 -- Defines the function 'get_config_dir' globally to avoid typing things like
 -- "/home/kyleg/.config/awesome" everywhere.

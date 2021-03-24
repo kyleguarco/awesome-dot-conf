@@ -4,7 +4,8 @@ local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup')
 
 -- Modifiers
-local mod, alt, ctrl, shft = config.modkey.m, config.modkey.a, config.modkey.c, config.modkey.s
+local modkeys = require("keys.modkey")
+local mod, alt, ctrl, shft = modkeys.m, modkeys.a, modkeys.c, modkeys.s
 
 local function meta(grp, desc)
     desc = desc or "<>"
@@ -36,27 +37,32 @@ local globalkeys = gears.table.join(
         meta("awesome", "reload awesome")),
     awful.key({ mod, shft }, "q", awesome.quit,
         meta("awesome", "quit awesome")),
+    -- HUD
+    awful.key({ mod       }, "Escape",
+        function()
+            screen.emit_signal("ws::update")
+            screen.emit_signal("ws::show")
+        end,
+        meta("awesome", "show menu")),
 
     awful.key({ mod       }, "Left", awful.tag.viewprev,
         meta("tag", "view previous")),
     awful.key({ mod       }, "Right", awful.tag.viewnext,
         meta("tag", "view next")),
-    awful.key({ mod       }, "Escape", awful.tag.history.restore,
-        meta("tag", "go back")),
 
     awful.key({ mod       }, "j", function() awful.client.focus.byidx(1) end,
-        meta("client-g", "focus next by index")),
+        meta("client", "focus next by index")),
     awful.key({ mod       }, "k", function() awful.client.focus.byidx(-1) end,
-        meta("client-g", "focus previous by index")),
+        meta("client", "focus previous by index")),
 
     -- Layout manipulation
     awful.key({ mod, shft }, "j", function() awful.client.swap.byidx(1) end,
-        meta("client-g", "swap with next client by index")),
+        meta("client", "swap with next client by index")),
     awful.key({ mod, shft }, "k", function() awful.client.swap.byidx(-1) end,
-        meta("client-g", "swap with previous client by index")),
+        meta("client", "swap with previous client by index")),
 
     awful.key({ mod       }, "u", awful.client.urgent.jumpto,
-        meta("client-g", "jump to urgent client")),
+        meta("client", "jump to urgent client")),
 
     awful.key({ mod       }, "Tab",
         function()
@@ -65,7 +71,7 @@ local globalkeys = gears.table.join(
                 client.focus:raise()
             end
         end,
-        meta("client-g", "go back")),
+        meta("client", "switch to previous client (same tag)")),
 
     awful.key({ mod, ctrl }, "n",
         function()
@@ -78,10 +84,10 @@ local globalkeys = gears.table.join(
             )
             end
         end,
-        meta("client-g", "restore minimized")),
+        meta("client", "restore minimized")),
 
     awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -show window -show-icons") end,
-        meta("client-g", "Show the rofi window switcher")),
+        meta("client", "Show the rofi window switcher")),
 
     awful.key({ mod       }, "l",     function() awful.tag.incmwfact(0.05) end,
         meta("layout", "increase master width factor")),
@@ -106,23 +112,14 @@ local globalkeys = gears.table.join(
         meta("screen", "focus the previous screen")),
 
     -- Standard program
-    awful.key({ mod       }, "Return", function() awful.spawn(config.terminal) end,
+    awful.key({ mod       }, "Return", function() awful.spawn("urxvt") end,
         meta("launcher", "open a terminal")),
 
     -- Prompt
     awful.key({ mod       }, "r", function() awful.spawn("rofi -show drun -show-icons") end,
         meta("launcher", "rofi run prompt")),
 
-    -- HUD
-    awful.key({ mod       }, "v",
-        function()
-            screen.emit_signal("ws::update")
-            screen.emit_signal("ws::show_display")
-        end,
-        meta("screen", "show hud")),
-
     -- Volume Keys
-
     awful.key({           }, "XF86AudioRaiseVolume", function() volume("5%+") end,
         meta("audio", "raise volume")),
 

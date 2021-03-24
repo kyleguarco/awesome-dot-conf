@@ -19,10 +19,7 @@ do
 end
 -- }}}
 
--- Load the global config
-require("config")
-
--- Load various utility functions globally (see util.init)
+-- Load various utility functions globally (see `util/init.lua`)
 require("util")
 
 -- Load the new default options for awesome libraries
@@ -35,21 +32,17 @@ theme = require("theme")
 beautiful.init(theme)
 -- }}}
 
--- {{{ Screen Initialization (Creates tags and widgets)
+-- Screen Initialization (Creates tags and widgets, see `screen.lua`)
 require("screen")
--- }}}
 
 -- {{{ Global input bindings
-local keys_keyboard = require("keys.globalkeys")
-local keys_mouse = require("keys.globalbuttons")
-root.keys(keys_keyboard)
-root.buttons(keys_mouse)
+root.keys(require("keys.globalkeys"))
+root.buttons(require("keys.globalbuttons"))
 -- }}}
 
 -- {{{ Client Initialization
 -- Rules to apply to new clients (through the "manage" signal).
-local client_rules = require("client.rules")
-awful.rules.rules = client_rules
+awful.rules.rules = require("client.rules")
 
 -- Connects clients to appropriate signals
 require("client.signal")

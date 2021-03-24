@@ -1,4 +1,4 @@
--- geom.lua (Local scope)
+-- util/geom.lua (local scope)
 --
 -- Functions that can align widgets to a certain part of the screen, taking useless_gap
 -- into account whe aligning the widgets. This is mainly used for the display widget.
@@ -54,6 +54,13 @@ function geom.screen.center_bar(s, widget)
 	widget.height = beautiful.widget_display_size
 	widget.y = half_y - widget.height / 2
 	widget.width = s.geometry.width - beautiful.useless_gap * 2
+end
+
+function geom.screen.center_headsup(s, widget)
+	widget.x = s.geometry.width / 8
+	widget.height = beautiful.widget_headsup_height
+	widget.y = s.geometry.height / 8
+	widget.width = beautiful.widget_headsup_width
 end
 
 return geom

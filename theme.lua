@@ -5,10 +5,10 @@
 -- are used for different widgets.
 --
 -- Anything else should go into the Xresources file (colors, window icon themes, fonts...)
---
 
 local gears = require('gears')
 local xresources = require('beautiful.xresources')
+local colordb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
 local theme = {
@@ -34,19 +34,19 @@ local theme = {
 	titlebar_sticky_button_focus_inactive = get_config_dir().."assets/window_sticky_inactive.png",
 	titlebar_sticky_button_normal_inactive = get_config_dir().."assets/window_sticky_inactive.png",
 
-    useless_gap   = dpi(4),
+    useless_gap   = dpi(5),
     border_width  = dpi(2),
-    --border_normal = "#AB0AC0",
-    --border_focus  = "#0ABAEB",
-    --border_marked = "#BEABA0",
-    border_normal = "#100525",
-    border_focus  = "#605075",
-    border_marked = "#BEABA0",
+    border_normal = colordb.color8,
+    border_focus  = colordb.color13,
+    border_marked = colordb.color7,
+
+    bg = colordb.color8,
+    fg = colordb.color7,
 
     -- Custom theme variables
-    widget_display_size = 20,
-    widget_battery_fg = "#10A010",
-    widget_battery_bg = "#105010",
+    widget_bat_normal = colordb.color7,
+    widget_bat_charge = colordb.color13,
+    widget_bat_critical = colordb.color2,
 }
 
 -- Merge the default theme with the custom one.
