@@ -1,5 +1,4 @@
 -- util/geom.lua (local scope)
---
 -- Functions that can align widgets to a certain part of the screen, taking useless_gap
 -- into account whe aligning the widgets. This is mainly used for the display widget.
 

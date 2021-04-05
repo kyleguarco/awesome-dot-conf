@@ -1,5 +1,4 @@
 -- util/script.lua (global scope)
---
 -- Defines a global funcion 'script' that returns he path of a shell script.
 -- Useful for widgets with 'capture' to grab the output of a command for display.
 

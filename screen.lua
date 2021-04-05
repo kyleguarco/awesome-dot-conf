@@ -1,5 +1,4 @@
 -- screen.lua (global scope)
---
 -- Loaded in rc.lua to set up all the screens connected to the computer
 
 local awful = require('awful')
@@ -26,6 +25,13 @@ local function fit(s, drawable, placement)
         parent = s,
         attach = true,
         honor_padding = true,
+        honor_workarea = true,
+        -- Sets all margins to the useless_gap of the workspace.
+        margins = setmetatable({}, {
+            __index = function()
+                return beautiful.useless_gap + beautiful.useless_gap_offset
+            end
+        })
     })
 end
 
@@ -37,8 +43,11 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Widget setup
-    widget_battery = require("widgets.battery")(require("widgets.time"))
-    fit(s, widget_battery, awful.placement.centered)
+    stats_wibox = require("widgets.stats_wibox")
+    systray_wibox = require("widgets.systray_wibox")
+
+    fit(s, stats_wibox, awful.placement.top_right)
+    fit(s, systray_wibox, awful.placement.top_left)
 end)
 
 -- Create a timer to emit an update signal for widgets
@@ -47,9 +56,30 @@ gears.timer {
     call_now = true,
     autostart = true,
     callback = function()
-        screen.emit_signal("ws::update")
+        screen.emit_signal("mywidgets::update")
     end
 }
 
+-- local function on_tag_swap()
+--     awful.popup {
+--         border_color = beautiful.border_normal,
+--         border_width = 2,
+--         placement = awful.placement.top,
+--         width = 800,
+--         height = 100,
+--         shape = gears.shape.rounded_rect,
+--         screen = awful.screen.focused(),
+--         widget = {
+--             text = "HI!",
+--             widget = wibox.widget.textbox,
+--             margins = 10,
+--             layout = wibox.container.margin,
+--         },
+--         ontop = true,
+--         visible = true,
+--     }
+-- end
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
+-- screen.connect_signal("tag::history::update", on_tag_swap)

@@ -1,5 +1,4 @@
 -- defaults.lua (global scope)
---
 -- This is loaded in rc.lua to load the defaults for some services in awesome.
 
 local awful = require('awful')
@@ -23,11 +22,3 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
-
--- Set the default notification parameters
-naughty.config.defaults = gears.table.crush(naughty.config.defaults, {
-    shape = gears.shape.rounded_rect,
-    -- Minimum Width
-    width = dpi(800),
-    margin = dpi(8)
-})

@@ -1,5 +1,4 @@
--- util/capture_shell.lua (global scope)
---
+-- util/capture_shell.lua (local scope)
 -- Adds a wrapper for capturing command output.
 -- https://awesomewm.org/doc/api/libraries/awful.spawn.html#easy_async_with_shell
 

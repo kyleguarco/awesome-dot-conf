@@ -12,41 +12,59 @@ local colordb = xresources.get_current_theme()
 local dpi = xresources.apply_dpi
 
 local theme = {
-    wallpaper = os.getenv("HOME") .. "/Pictures/wallpapers/mechanical_keyboards.png",
+    -- "wallpaper" should be a symlink (see script/set_wallpaper.sh)
+    wallpaper                               = asset "wallpaper",
 
-    font = "lemon 12",
-    icon_theme = "Faba",
+    font                                    = "lemon 12",
+    icon_theme                              = "candy-icons",
 
-    separator_thinkness = 5,
-    separator_span_ratio = 0.25,
+    separator_thinkness                     = 4,
+    separator_span_ratio                    = 0.25,
 
-    notificaion_border_width = dpi(4),
-    -- notification_height = dpi(25),
-    notification_spacing = dpi(4),
+    notification_border_width               = dpi(4),
+    notification_border_color               = colordb.color7,
+    notification_spacing                    = dpi(4),
+    notification_width                      = dpi(600),
+    notification_icon_size                  = dpi(70),
+    notification_shape                      = gears.shape.rounded_rect,
 
-    titlebar_bg = "#001020",
-    titlebar_close_button_focus = get_config_dir().."assets/window_close.png",
-    titlebar_close_button_normal = get_config_dir().."assets/window_close.png",
- 	titlebar_minimize_button_focus = get_config_dir().."assets/window_minimize.png",
-	titlebar_minimize_button_normal = get_config_dir().."assets/window_minimize.png",
-	titlebar_sticky_button_focus_active = get_config_dir().."assets/window_sticky_active.png",
-	titlebar_sticky_button_normal_active = get_config_dir().."assets/window_sticky_active.png",
-	titlebar_sticky_button_focus_inactive = get_config_dir().."assets/window_sticky_inactive.png",
-	titlebar_sticky_button_normal_inactive = get_config_dir().."assets/window_sticky_inactive.png",
+    titlebar_fg                             = colordb.foreground,
+    titlebar_bg                             = colordb.color0,
+    titlebar_bg_normal                      = colordb.foreground,
+    titlebar_fg_normal                      = colordb.color0,
+    titlebar_close_button_focus             = asset "window_close.png",
+    titlebar_close_button_normal            = asset "window_close.png",
+ 	titlebar_minimize_button_focus          = asset "window_minimize.png",
+	titlebar_minimize_button_normal         = asset "window_minimize.png",
+	titlebar_sticky_button_focus_active     = asset "window_sticky_active.png",
+	titlebar_sticky_button_normal_active    = asset "window_sticky_active.png",
+	titlebar_sticky_button_focus_inactive   = asset "window_sticky_inactive.png",
+	titlebar_sticky_button_normal_inactive  = asset "window_sticky_inactive.png",
 
-    useless_gap   = dpi(5),
-    border_width  = dpi(2),
-    border_normal = colordb.color8,
-    border_focus  = colordb.color13,
-    border_marked = colordb.color7,
+    bg_systray                              = colordb.foreground,
+    systray_icon_spacing                    = dpi(1),
 
-    bg = colordb.color8,
-    fg = colordb.color7,
+    useless_gap                             = dpi(4),
+    border_width                            = dpi(2),
+    border_normal                           = colordb.color8,
+    border_focus                            = colordb.color13,
+    border_marked                           = colordb.color7,
+
+    bg                                      = colordb.background,
+    fg                                      = colordb.color7,
 
     -- Custom theme variables
-    widget_bat_normal = colordb.color7,
-    widget_bat_charge = colordb.color13,
-    widget_bat_critical = colordb.color2,
+    widget_stat_height                      = dpi(70),
+    widget_stat_width                       = dpi(500),
+    widget_systray_height                   = dpi(70),
+    widget_systray_width                    = dpi(500),
+
+    widget_bat_normal                       = colordb.foreground,
+    widget_bat_charging                     = colordb.color4,
+    widget_bat_margin                       = dpi(13),
+    widget_bat_padding_charge               = dpi(5),
+    -- Used to offset widgets behind clients.
+    useless_gap_offset                      = dpi(5),
 }
 
 -- Merge the default theme with the custom one.

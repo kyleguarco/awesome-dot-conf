@@ -1,6 +1,6 @@
 -- debug.lua (local scope)
---
 -- Provides a function that prints some output to a naughty function
+
 local naughty = require('naughty')
 
 local function debug(msg)

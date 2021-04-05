@@ -40,8 +40,8 @@ local globalkeys = gears.table.join(
     -- HUD
     awful.key({ mod       }, "Escape",
         function()
-            screen.emit_signal("ws::update")
-            screen.emit_signal("ws::show")
+            screen.emit_signal("mywidgets::update")
+            screen.emit_signal("mywidgets::show")
         end,
         meta("awesome", "show menu")),
 
@@ -111,6 +111,17 @@ local globalkeys = gears.table.join(
     awful.key({ mod, ctrl }, "k", function() awful.screen.focus_relative(-1) end,
         meta("screen", "focus the previous screen")),
 
+    awful.key({ mod       }, "Print",
+        function()
+            awful.spawn.with_shell(script("take_screenshot"))
+        end,
+        meta("screen", "take a screenshot")),
+    -- Brightness
+    awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
+        meta("screen", "increase brightness")),
+    awful.key({           }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
+        meta("screen", "decrease brightness")),
+
     -- Standard program
     awful.key({ mod       }, "Return", function() awful.spawn("urxvt") end,
         meta("launcher", "open a terminal")),
@@ -127,20 +138,7 @@ local globalkeys = gears.table.join(
         meta("audio", "lower volume")),
 
     awful.key({           }, "XF86AudioMute", function() volume("toggle") end,
-        meta("audio", "mute")),
-
-    -- Brightness Keys
-
-    -- WARNING: A dirty fix was implemented for this. Refer to this forum
-    -- for more info: https://unix.stackexchange.com/a/482413/248296
-
-    -- xf86-video-intel was also installed for this functionality.
-
-    awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
-    meta("display", "increase brightness")),
-
-    awful.key({           }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
-    meta("display", "decrease brightness"))
+        meta("audio", "mute"))
 )
 
 -- Bind all key numbers to tags.
