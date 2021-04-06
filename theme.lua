@@ -41,7 +41,7 @@ local theme = {
 	titlebar_sticky_button_focus_inactive   = asset "window_sticky_inactive.png",
 	titlebar_sticky_button_normal_inactive  = asset "window_sticky_inactive.png",
 
-    bg_systray                              = colordb.foreground,
+    bg_systray                              = colordb.background,
     systray_icon_spacing                    = dpi(1),
 
     useless_gap                             = dpi(4),
@@ -61,8 +61,8 @@ local theme = {
 
     widget_bat_normal                       = colordb.foreground,
     widget_bat_charging                     = colordb.color4,
-    widget_bat_margin                       = dpi(13),
-    widget_bat_padding_charge               = dpi(5),
+    widget_bat_margin                       = dpi(20),
+    widget_bat_border_width                 = dpi(2),
     -- Used to offset widgets behind clients.
     useless_gap_offset                      = dpi(5),
 }

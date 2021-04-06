@@ -20,7 +20,7 @@ local battery_widget = wibox.widget {
     value = 10,
     max_value = 100,
     border_color = beautiful.border_focus,
-    border_width = 4,
+    border_width = beautiful.widget_bat_border_width,
     background_color = beautiful.bg,
     color = beautiful.widget_bat_normal,
     margins = c_margins,
@@ -42,6 +42,10 @@ local function on_update()
             else
                 battery_widget.color = beautiful.widget_bat_normal
             end
+
+            -- So interestingly enough, this emit_signal call pushes arguments onto
+            -- the stack backwards (with data[2] actually being the first argument "is_charging")
+            battery_widget:emit_signal("battery_widget::changed", data[1], data[2])
         end)
     end
 end

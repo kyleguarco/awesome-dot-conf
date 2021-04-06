@@ -19,9 +19,8 @@ local function set_wallpaper(s)
 end
 
 -- `drawable`: A wibox; `placement`: An `awful.placement` function
-local function fit(s, drawable, placement)
-    drawable.s = s
-    placement(drawable, {
+local function fit(s, drawable, placement, args)
+    local args = gears.table.crush({
         parent = s,
         attach = true,
         honor_padding = true,
@@ -32,7 +31,10 @@ local function fit(s, drawable, placement)
                 return beautiful.useless_gap + beautiful.useless_gap_offset
             end
         })
-    })
+    }, args or {})
+
+    drawable.s = s
+    return placement(drawable, args)
 end
 
 awful.screen.connect_for_each_screen(function(s)
@@ -46,8 +48,12 @@ awful.screen.connect_for_each_screen(function(s)
     stats_wibox = require("widgets.stats_wibox")
     systray_wibox = require("widgets.systray_wibox")
 
-    fit(s, stats_wibox, awful.placement.top_right)
-    fit(s, systray_wibox, awful.placement.top_left)
+    local stat_geo = fit(s, stats_wibox, awful.placement.centered)
+    fit(s, systray_wibox, awful.placement.next_to, {
+        preferred_positions = { "bottom" },
+        preferred_anchors = { "middle" },
+        geometry = stats_wibox,
+    })
 end)
 
 -- Create a timer to emit an update signal for widgets

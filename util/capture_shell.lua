@@ -11,7 +11,7 @@ local function capture(cmd, callback, outfile)
 		outfile = "AWESOMEOUT"
 	end
 
-	awful.spawn.easy_async_with_shell("sleep 2; " .. cmd .. "> /tmp/" .. outfile,
+	awful.spawn.easy_async_with_shell("sleep 1; " .. cmd .. "> /tmp/" .. outfile,
 	function()
 		-- Callback: stdout, stderr, exitreason ("exit" or "signal"), exitcode
 		awful.spawn.easy_async_with_shell("cat /tmp/" .. outfile,
