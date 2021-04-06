@@ -14,7 +14,7 @@ not_saved() {
 	exit -1
 }
 
-maim -m 4 -s > ~/"${SCRNAME}"
+maim -um 4 -s > ~/"${SCRNAME}"
 
 if [[ $? != 0 ]]; then
 	not_saved

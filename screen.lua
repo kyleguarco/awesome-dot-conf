@@ -48,12 +48,8 @@ awful.screen.connect_for_each_screen(function(s)
     stats_wibox = require("widgets.stats_wibox")
     systray_wibox = require("widgets.systray_wibox")
 
-    local stat_geo = fit(s, stats_wibox, awful.placement.centered)
-    fit(s, systray_wibox, awful.placement.next_to, {
-        preferred_positions = { "bottom" },
-        preferred_anchors = { "middle" },
-        geometry = stats_wibox,
-    })
+    fit(s, stats_wibox, awful.placement.top_right)
+    fit(s, systray_wibox, awful.placement.top_left)
 end)
 
 -- Create a timer to emit an update signal for widgets

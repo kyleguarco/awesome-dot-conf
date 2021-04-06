@@ -54,9 +54,9 @@ local theme = {
     fg                                      = colordb.color7,
 
     -- Custom theme variables
-    widget_stat_height                      = dpi(70),
+    widget_stat_height                      = dpi(65),
     widget_stat_width                       = dpi(500),
-    widget_systray_height                   = dpi(70),
+    widget_systray_height                   = dpi(65),
     widget_systray_width                    = dpi(500),
 
     widget_bat_normal                       = colordb.foreground,
