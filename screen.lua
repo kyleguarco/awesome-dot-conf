@@ -50,9 +50,11 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Widget setup
-    stats_wibox = require("widgets.stats_wibox")
-    systray_wibox = require("widgets.systray_wibox")
-    taglist_wibox = require("widgets.taglist_wibox")(s)
+    local stats_wibox = require("widgets.stats_wibox")
+    local systray_wibox = require("widgets.systray_wibox")
+
+    local taglist_wibox_new = require("widgets.taglist_wibox")
+    local taglist_wibox = taglist_wibox_new(s)
 
     fit(stats_wibox, awful.placement.top_right)
     fit(systray_wibox, awful.placement.top_left)
