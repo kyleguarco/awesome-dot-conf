@@ -1,7 +1,8 @@
 local awful = require('awful')
+local beautiful = require('beautiful')
 local gears = require('gears')
 local naughty = require('naughty')
-local hotkeys_popup = require('awful.hotkeys_popup')
+local hotkeys_popup = require('awful.hotkeys_popup.widget')
 
 -- Modifiers
 local modkeys = require("keys.modkey")
@@ -31,7 +32,17 @@ local function brightness(value)
 end
 
 local globalkeys = gears.table.join(
-    awful.key({ mod,      }, "s", hotkeys_popup.show_help,
+    awful.key({ mod,      }, "s",
+        function()
+            -- This is done because there's a bug where some of the
+            -- hotkeys are hidden outside the widget.
+            local popup = hotkeys_popup.new {
+                width = beautiful.hotkey_popup_width,
+                height = beautiful.hotkey_popup_height,
+                group_margins = beautiful.hotkey_popup_margin,
+            }
+            popup:show_help()
+        end,
         meta("awesome", "show help")),
     awful.key({ mod, ctrl }, "r", awesome.restart,
         meta("awesome", "reload awesome")),

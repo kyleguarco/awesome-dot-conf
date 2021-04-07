@@ -31,30 +31,44 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    local titlebar = awful.titlebar(c, { 
-        font = beautiful.titlebar_font or beautiful.font, 
-        position = "bottom" 
-    })
-    
-    titlebar : setup {
-        nil,
-        {
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout = wibox.layout.flex.horizontal
-        },
-        {
-            awful.titlebar.widget.stickybutton(c),
-			awful.titlebar.widget.minimizebutton(c),
-			awful.titlebar.widget.closebutton(c),
+    local floattext_widget = wibox.widget {
+        text = " floating",
+        visible = false,
+        widget = wibox.widget.textbox,
+    }
 
-            layout = wibox.layout.fixed.horizontal
+    local title_template_widget = {
+        {
+            align  = "center",
+            widget = awful.titlebar.widget.titlewidget(c)
         },
+        buttons = buttons,
+        layout = wibox.layout.flex.horizontal
+    }
+
+    local button_template_widget = {
+        awful.titlebar.widget.stickybutton(c),
+        awful.titlebar.widget.minimizebutton(c),
+        awful.titlebar.widget.closebutton(c),
+
+        layout = wibox.layout.fixed.horizontal
+    }
+
+    local titlebar = awful.titlebar(c, {
+        font = beautiful.titlebar_font or beautiful.font,
+        position = beautiful.titlebar_position
+    })
+
+    titlebar:setup {
+        floattext_widget,
+        title_template_widget,
+        button_template_widget,
         layout = wibox.layout.align.horizontal
     }
+
+    c:connect_signal("property::floating", function(is_floating)
+        floattext_widget.visible = not floattext_widget.visible
+    end)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.

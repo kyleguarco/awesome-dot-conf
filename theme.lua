@@ -54,6 +54,12 @@ local theme = {
     fg                                      = colordb.color7,
 
     -- Custom theme variables
+    hotkey_popup_width                      = dpi(1024),
+    hotkey_popup_height                     = dpi(820),
+    hotkey_popup_margin                     = dpi(40),
+
+    titlebar_position                       = "bottom",
+
     widget_stat_height                      = dpi(65),
     widget_stat_width                       = dpi(500),
     widget_systray_height                   = dpi(65),

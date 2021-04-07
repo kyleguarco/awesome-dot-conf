@@ -6,6 +6,19 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
+-- The default arguments for widget placement functions
+local c_default_widget_args = {
+    attach = true,
+    honor_padding = true,
+    honor_workarea = true,
+    -- Sets all margins to the useless_gap of the workspace.
+    margins = setmetatable({}, {
+        __index = function()
+            return beautiful.useless_gap + beautiful.useless_gap_offset
+        end
+    })
+}
+
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -19,21 +32,13 @@ local function set_wallpaper(s)
 end
 
 -- `drawable`: A wibox; `placement`: An `awful.placement` function
-local function fit(s, drawable, placement, args)
-    local args = gears.table.crush({
-        parent = s,
-        attach = true,
-        honor_padding = true,
-        honor_workarea = true,
-        -- Sets all margins to the useless_gap of the workspace.
-        margins = setmetatable({}, {
-            __index = function()
-                return beautiful.useless_gap + beautiful.useless_gap_offset
-            end
-        })
-    }, args or {})
+local function fit(drawable, placement, args)
+    if args then
+        gears.table.crush(args, c_default_widget_args)
+    else
+        args = c_default_widget_args
+    end
 
-    drawable.s = s
     return placement(drawable, args)
 end
 
@@ -47,9 +52,11 @@ awful.screen.connect_for_each_screen(function(s)
     -- Widget setup
     stats_wibox = require("widgets.stats_wibox")
     systray_wibox = require("widgets.systray_wibox")
+    taglist_wibox = require("widgets.taglist_wibox")(s)
 
-    fit(s, stats_wibox, awful.placement.top_right)
-    fit(s, systray_wibox, awful.placement.top_left)
+    fit(stats_wibox, awful.placement.top_right)
+    fit(systray_wibox, awful.placement.top_left)
+    fit(taglist_wibox, awful.placement.bottom)
 end)
 
 -- Create a timer to emit an update signal for widgets
@@ -62,26 +69,5 @@ gears.timer {
     end
 }
 
--- local function on_tag_swap()
---     awful.popup {
---         border_color = beautiful.border_normal,
---         border_width = 2,
---         placement = awful.placement.top,
---         width = 800,
---         height = 100,
---         shape = gears.shape.rounded_rect,
---         screen = awful.screen.focused(),
---         widget = {
---             text = "HI!",
---             widget = wibox.widget.textbox,
---             margins = 10,
---             layout = wibox.container.margin,
---         },
---         ontop = true,
---         visible = true,
---     }
--- end
-
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
--- screen.connect_signal("tag::history::update", on_tag_swap)

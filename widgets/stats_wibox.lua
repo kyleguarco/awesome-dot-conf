@@ -13,7 +13,9 @@ local stats_widget = wibox.widget {
 		widget = wibox.widget.textbox,
 		id = "batterytext",
 	},
-	{ widget = require("widgets.time") },
+	{
+		widget = require("widgets.time")
+	},
 
 	spacing = 10,
 	--spacing_widget = wibox.widget.separator,

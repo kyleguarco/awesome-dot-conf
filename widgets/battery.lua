@@ -46,7 +46,7 @@ local function on_update()
             -- So interestingly enough, this emit_signal call pushes arguments onto
             -- the stack backwards (with data[2] actually being the first argument "is_charging")
             battery_widget:emit_signal("battery_widget::changed", data[1], data[2])
-        end)
+        end, "BATOUT")
     end
 end
 

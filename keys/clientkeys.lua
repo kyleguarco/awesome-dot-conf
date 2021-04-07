@@ -1,4 +1,5 @@
 local awful = require('awful')
+local beautiful = require('beautiful')
 local gears = require('gears')
 local hotkeys_popup = require('awful.hotkeys_popup')
 
@@ -28,6 +29,18 @@ local clientkeys = gears.table.join(
         end,
         meta "toggle floating"),
 
+    awful.key({ mod, ctrl }, "c",
+        function(c)
+            awful.titlebar.toggle(c, beautiful.titlebar_position)
+        end,
+        meta "toggle titlebar"),
+
+    awful.key({ mod, ctrl }, "s",
+        function(c)
+            c.sticky = not c.sticky
+        end,
+        meta "toggle sticky"),
+
     awful.key({ mod, ctrl }, "Return", function(c) c:swap(awful.client.getmaster()) end,
         meta "move to master"),
 
@@ -51,13 +64,6 @@ local clientkeys = gears.table.join(
             c:raise()
         end ,
         meta "(un)maximize"),
-
-    awful.key({ mod       }, "m",
-        function(c)
-            c.maximized_vertical = not c.maximized_vertical
-            c:raise()
-        end ,
-        meta "(un)maximize vertically"),
 
     awful.key({ mod, shft }, "m",
         function(c)
