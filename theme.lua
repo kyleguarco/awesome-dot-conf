@@ -62,6 +62,9 @@ local theme = {
 
     widget_stat_height                      = dpi(65),
     widget_stat_width                       = dpi(500),
+    widget_taglist_height                   = dpi(90),
+    widget_taglist_width                    = dpi(650),
+    widget_taglist_margin                   = dpi(5),
     widget_systray_height                   = dpi(65),
     widget_systray_width                    = dpi(500),
 

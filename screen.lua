@@ -6,6 +6,9 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
+-- The new taglist function returned by the taglist script
+local taglist_wibox_new = require("widgets.taglist_wibox")
+
 -- The default arguments for widget placement functions
 local c_default_widget_args = {
     attach = true,
@@ -34,7 +37,7 @@ end
 -- `drawable`: A wibox; `placement`: An `awful.placement` function
 local function fit(drawable, placement, args)
     if args then
-        gears.table.crush(args, c_default_widget_args)
+        gears.table.crush(c_default_widget_args, args)
     else
         args = c_default_widget_args
     end
@@ -53,12 +56,17 @@ awful.screen.connect_for_each_screen(function(s)
     local stats_wibox = require("widgets.stats_wibox")
     local systray_wibox = require("widgets.systray_wibox")
 
-    local taglist_wibox_new = require("widgets.taglist_wibox")
     local taglist_wibox = taglist_wibox_new(s)
 
     fit(stats_wibox, awful.placement.top_right)
     fit(systray_wibox, awful.placement.top_left)
-    fit(taglist_wibox, awful.placement.bottom)
+    fit(taglist_wibox, awful.placement.bottom, {
+        margins = setmetatable({}, {
+            __index = function()
+                return 5 * beautiful.useless_gap
+            end
+        })
+    })
 end)
 
 -- Create a timer to emit an update signal for widgets

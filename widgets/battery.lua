@@ -4,18 +4,6 @@ local wibox = require('wibox')
 
 local capture = require("util.capture_shell")
 
-local c_margins = setmetatable({}, {
-    __index = function()
-        return beautiful.widget_bat_margin
-    end
-})
-
-local c_paddings = setmetatable({}, {
-    __index = function()
-        return beautiful.border_width
-    end
-})
-
 local battery_widget = wibox.widget {
     value = 10,
     max_value = 100,
@@ -23,7 +11,7 @@ local battery_widget = wibox.widget {
     border_width = beautiful.widget_bat_border_width,
     background_color = beautiful.bg,
     color = beautiful.widget_bat_normal,
-    margins = c_margins,
+    margins = beautiful.widget_bat_margin,
     widget = wibox.widget.progressbar,
 }
 
