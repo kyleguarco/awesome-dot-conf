@@ -31,7 +31,6 @@ local stats_wibox = wibox {
 	fg = beautiful.fg,
 	height = beautiful.widget_stat_height,
 	width = beautiful.widget_stat_width,
-	visible = true,
 }
 
 stats_wibox:setup {
@@ -44,11 +43,5 @@ local function _on_charge_change(is_charging, charge)
 end
 
 stats_widget.battery:connect_signal("battery_widget::changed", _on_charge_change)
-
-local function _on_show()
-	stats_wibox.ontop = not stats_wibox.ontop
-end
-
-screen.connect_signal("mywidgets::show", _on_show)
 
 return stats_wibox
