@@ -13,7 +13,7 @@ local systray_wibox = wibox {
 	fg = beautiful.fg,
 	height = beautiful.widget_systray_height,
 	width = beautiful.widget_systray_width,
-	visible = true,
+	visible = false,
 }
 
 systray_wibox:setup {
@@ -21,10 +21,11 @@ systray_wibox:setup {
 	layout = wibox.layout.flex.horizontal,
 }
 
-local function on_show()
+local function _on_show()
 	systray_wibox.ontop = not systray_wibox.ontop
+	systray_wibox.visible = true
 end
 
-screen.connect_signal("mywidgets::show", on_show)
+screen.connect_signal("mywidgets::show", _on_show)
 
 return systray_wibox

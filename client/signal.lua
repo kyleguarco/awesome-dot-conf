@@ -66,8 +66,8 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 
-    c:connect_signal("property::floating", function(is_floating)
-        floattext_widget.visible = not floattext_widget.visible
+    c:connect_signal("property::floating", function()
+        floattext_widget.visible = c.floating
     end)
 end)
 

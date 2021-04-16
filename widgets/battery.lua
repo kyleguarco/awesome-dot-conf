@@ -1,8 +1,7 @@
 local awful = require('awful')
+local gears = require('gears')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
-
-local capture = require("util.capture_shell")
 
 local battery_widget = wibox.widget {
     value = 10,
@@ -15,29 +14,25 @@ local battery_widget = wibox.widget {
     widget = wibox.widget.progressbar,
 }
 
-local function on_update()
-    -- Updates the battery widget
-    if battery_widget.visible then
-        capture(script("get_power"),
-        function(data)
-            local is_charge = data[2] == "1"
-            local charge = tonumber(data[1])
+local battery_widget_watch = awful.widget.watch(script("get_power"), 5,
+    function(widget, stdout)
+        local data = gears.string.split(stdout, ';')
 
-            battery_widget.value = charge
+        local is_charge = data[2] == "1"
+        local charge = tonumber(data[1])
 
-            if is_charge then
-                battery_widget.color = beautiful.widget_bat_charging
-            else
-                battery_widget.color = beautiful.widget_bat_normal
-            end
+        widget.value = charge
 
-            -- So interestingly enough, this emit_signal call pushes arguments onto
-            -- the stack backwards (with data[2] actually being the first argument "is_charging")
-            battery_widget:emit_signal("battery_widget::changed", data[1], data[2])
-        end, "BATOUT")
-    end
-end
+        if is_charge then
+            widget.color = beautiful.widget_bat_charging
+        else
+            widget.color = beautiful.widget_bat_normal
+        end
 
-screen.connect_signal("mywidgets::update", on_update)
+        -- So interestingly enough, this emit_signal call pushes arguments onto
+        -- the stack backwards (with data[2] actually being the first argument "is_charging")
+        widget:emit_signal("battery_widget::changed", data[1], data[2])
+    end,
+battery_widget)
 
-return battery_widget
+return battery_widget_watch

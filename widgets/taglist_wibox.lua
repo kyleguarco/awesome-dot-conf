@@ -53,10 +53,6 @@ return function(s)
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
 		widget_template = tag_template_widget,
-		style = {
-			bg = beautiful.fg,
-			shape = gears.shape.circle,
-		},
 		layout = {
 			inner_fill_strategy = "justify",
 			layout = wibox.layout.ratio.horizontal
@@ -81,8 +77,11 @@ return function(s)
 		height = beautiful.widget_taglist_height,
 		width = beautiful.widget_taglist_width,
 		shape = gears.shape.rectangle,
+		opacity = 0.8,
 		visible = false,
 	}
+	-- This is a workaround for a v4.3 bug.
+	taglist_wibox.input_passthrough = true
 
 	local r_taglist_widget = wibox.widget {
 		{
@@ -118,7 +117,7 @@ return function(s)
 		layout = wibox.layout.flex.vertical,
 	}
 
-	local function set_visibility(v)
+	local function _set_visibility(v)
 		taglist_wibox.ontop = v
 		taglist_wibox.visible = v
 	end
@@ -128,19 +127,19 @@ return function(s)
 		single_shot = true,
 		timeout = 3,
 		callback = function()
-			set_visibility(false)
+			_set_visibility(false)
 		end,
 	}
 
-	local function on_show()
+	local function _on_show()
 		if not taglist_wibox.ontop then
-			set_visibility(true)
+			_set_visibility(true)
 			taglist_timer:again()
 		end
 	end
 
-	screen.connect_signal("tag::history::update", on_show)
-	client.connect_signal("focus", on_show)
+	screen.connect_signal("tag::history::update", _on_show)
+	client.connect_signal("focus", _on_show)
 
 	return taglist_wibox
 end

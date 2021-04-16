@@ -5,7 +5,7 @@ local gears = require('gears')
 local modkeys = require("keys.modkey")
 local mod = modkeys.m
 
-return gears.table.join(
+local clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
     end),
@@ -18,3 +18,5 @@ return gears.table.join(
         awful.mouse.client.resize(c)
     end)
 )
+
+return clientbuttons

@@ -5,8 +5,9 @@ local gears = require('gears')
 local modkeys = require("keys.modkey")
 local mod = modkeys.m
 
-return gears.table.join(
-    --awful.button({ }, 3, function () mymainmenu:toggle() end),
+local globalbuttons = gears.table.join(
     awful.button({ mod }, 4, awful.tag.viewnext),
     awful.button({ mod }, 5, awful.tag.viewprev)
 )
+
+return globalbuttons

@@ -8,8 +8,9 @@
 
 local gears = require('gears')
 local xresources = require('beautiful.xresources')
+
 local colordb = xresources.get_current_theme()
-local dpi = xresources.apply_dpi
+local _dpi = xresources.apply_dpi
 
 local theme = {
     -- "wallpaper" should be a symlink (see script/set_wallpaper.sh)
@@ -21,11 +22,11 @@ local theme = {
     separator_thinkness                     = 4,
     separator_span_ratio                    = 0.25,
 
-    notification_border_width               = dpi(4),
+    notification_border_width               = _dpi(4),
     notification_border_color               = colordb.color7,
-    notification_spacing                    = dpi(4),
-    notification_width                      = dpi(600),
-    notification_icon_size                  = dpi(70),
+    notification_spacing                    = _dpi(4),
+    notification_width                      = _dpi(600),
+    notification_icon_size                  = _dpi(70),
     notification_shape                      = gears.shape.rounded_rect,
 
     titlebar_fg                             = colordb.foreground,
@@ -42,10 +43,10 @@ local theme = {
 	titlebar_sticky_button_normal_inactive  = asset "window_sticky_inactive.png",
 
     bg_systray                              = colordb.background,
-    systray_icon_spacing                    = dpi(1),
+    systray_icon_spacing                    = _dpi(1),
 
-    useless_gap                             = dpi(4),
-    border_width                            = dpi(2),
+    useless_gap                             = _dpi(4),
+    border_width                            = _dpi(2),
     border_normal                           = colordb.color8,
     border_focus                            = colordb.color13,
     border_marked                           = colordb.color7,
@@ -54,26 +55,26 @@ local theme = {
     fg                                      = colordb.color7,
 
     -- Custom theme variables
-    hotkey_popup_width                      = dpi(1024),
-    hotkey_popup_height                     = dpi(820),
-    hotkey_popup_margin                     = dpi(40),
+    hotkey_popup_width                      = _dpi(1024),
+    hotkey_popup_height                     = _dpi(820),
+    hotkey_popup_margin                     = _dpi(40),
 
     titlebar_position                       = "bottom",
 
-    widget_stat_height                      = dpi(65),
-    widget_stat_width                       = dpi(500),
-    widget_taglist_height                   = dpi(90),
-    widget_taglist_width                    = dpi(650),
-    widget_taglist_margin                   = dpi(5),
-    widget_systray_height                   = dpi(65),
-    widget_systray_width                    = dpi(500),
+    widget_stat_height                      = _dpi(65),
+    widget_stat_width                       = _dpi(500),
+    widget_taglist_height                   = _dpi(85),
+    widget_taglist_width                    = _dpi(550),
+    widget_taglist_margin                   = _dpi(3),
+    widget_systray_height                   = _dpi(65),
+    widget_systray_width                    = _dpi(500),
 
     widget_bat_normal                       = colordb.foreground,
     widget_bat_charging                     = colordb.color4,
-    widget_bat_margin                       = dpi(20),
-    widget_bat_border_width                 = dpi(2),
+    widget_bat_margin                       = _dpi(20),
+    widget_bat_border_width                 = _dpi(2),
     -- Used to offset widgets behind clients.
-    useless_gap_offset                      = dpi(5),
+    useless_gap_offset                      = _dpi(5),
 }
 
 -- Merge the default theme with the custom one.

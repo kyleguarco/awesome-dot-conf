@@ -39,16 +39,16 @@ stats_wibox:setup {
 	layout = wibox.layout.flex.horizontal,
 }
 
-local function on_charge_change(is_charging, charge)
+local function _on_charge_change(is_charging, charge)
 	stats_widget.batterytext.text = charge
 end
 
-stats_widget.battery:connect_signal("battery_widget::changed", on_charge_change)
+stats_widget.battery:connect_signal("battery_widget::changed", _on_charge_change)
 
-local function on_show()
+local function _on_show()
 	stats_wibox.ontop = not stats_wibox.ontop
 end
 
-screen.connect_signal("mywidgets::show", on_show)
+screen.connect_signal("mywidgets::show", _on_show)
 
 return stats_wibox
