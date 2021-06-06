@@ -41,7 +41,8 @@ local function _fit_wibox(drawable, placement, args)
         args = c_default_widget_args
     end
 
-    return placement(drawable, args)
+    drawable.placement = placement
+    placement(drawable, args)
 end
 
 -- `w`: A wibox
@@ -70,7 +71,7 @@ end
 -- `w`: A wibox
 -- Connects wibox `w` to signals that can trigger `_manage_visi[_force]`
 local function _manage_wibox(w)
-    screen.connect_signal("mywidgets::show", _manage_visi_force(w))
+    widget:connect_signal("show", _manage_visi_force(w))
     screen.connect_signal("tag::history::update", _manage_visi(w))
     client.connect_signal("manage", _manage_visi(w))
     client.connect_signal("unmanage", _manage_visi(w))
@@ -86,15 +87,18 @@ awful.screen.connect_for_each_screen(function(s)
     -- Widget setup
     local stats_wibox = require("widgets.stats_wibox")
     local systray_wibox = require("widgets.systray_wibox")
+    local volume_wibox = require("widgets.volume_wibox")
     local taglist_wibox = _taglist_wibox_new(s)
 
-    _fit_wibox(stats_wibox, awful.placement.top_right)
     _manage_wibox(stats_wibox)
-    _fit_wibox(systray_wibox, awful.placement.top_left)
+    _fit_wibox(stats_wibox, awful.placement.top_left)
+
     _manage_wibox(systray_wibox)
-    _fit_wibox(taglist_wibox, awful.placement.bottom, {
-        margins = 8 * beautiful.useless_gap
-    })
+    _fit_wibox(systray_wibox, awful.placement.top_right)
+
+    _fit_wibox(taglist_wibox, awful.placement.top)
+
+    _fit_wibox(volume_wibox, awful.placement.bottom)
 end)
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)

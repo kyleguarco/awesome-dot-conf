@@ -1,5 +1,6 @@
 local awful = require('awful')
 require('awful.autofocus')
+local gears = require('gears')
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
@@ -17,6 +18,11 @@ do
         in_error = false
     end)
 end
+-- }}}
+
+-- {{{ Global Widget Object
+-- Used to connect signals to widgets.
+widget = gears.object {}
 -- }}}
 
 -- Load various utility functions globally (see `util/init.lua`)

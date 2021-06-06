@@ -19,6 +19,9 @@ local theme = {
     font                                    = "lemon 12",
     icon_theme                              = "candy-icons",
 
+    white                                   = colordb.white,
+    black                                   = colordb.black,
+
     separator_thinkness                     = 4,
     separator_span_ratio                    = 0.25,
 
@@ -45,7 +48,7 @@ local theme = {
     bg_systray                              = colordb.background,
     systray_icon_spacing                    = _dpi(1),
 
-    useless_gap                             = _dpi(4),
+    useless_gap                             = 0, --_dpi(4),
     border_width                            = _dpi(2),
     border_normal                           = colordb.color8,
     border_focus                            = colordb.color13,
@@ -61,20 +64,22 @@ local theme = {
 
     titlebar_position                       = "bottom",
 
-    widget_stat_height                      = _dpi(65),
+    widget_stat_height                      = _dpi(55),
     widget_stat_width                       = _dpi(500),
-    widget_taglist_height                   = _dpi(85),
-    widget_taglist_width                    = _dpi(550),
+    widget_taglist_height                   = _dpi(75),
+    widget_taglist_width                    = _dpi(450),
     widget_taglist_margin                   = _dpi(3),
-    widget_systray_height                   = _dpi(65),
+    widget_systray_height                   = _dpi(55),
     widget_systray_width                    = _dpi(500),
+    widget_volume_height                   = _dpi(55),
+    widget_volume_width                    = _dpi(500),
 
     widget_bat_normal                       = colordb.foreground,
     widget_bat_charging                     = colordb.color4,
     widget_bat_margin                       = _dpi(20),
     widget_bat_border_width                 = _dpi(2),
     -- Used to offset widgets behind clients.
-    useless_gap_offset                      = _dpi(5),
+    useless_gap_offset                      = _dpi(10),
 }
 
 -- Merge the default theme with the custom one.

@@ -4,14 +4,18 @@ local wibox = require('wibox')
 
 local stats_widget = wibox.widget {
 	{
-		widget = require("widgets.battery"),
-		id = "battery",
-	},
-	{
-		text = "00",
-		align = "center",
-		widget = wibox.widget.textbox,
-		id = "batterytext",
+		{
+			widget = require("widgets.battery"),
+			id = "battery",
+		},
+		{
+			markup = "00",
+			align = "center",
+			widget = wibox.widget.textbox,
+			id = "batterytext",
+		},
+		layout = wibox.layout.stack,
+		id = "bstack",
 	},
 	{
 		widget = require("widgets.time")
@@ -20,9 +24,8 @@ local stats_widget = wibox.widget {
 	spacing = 10,
 	--spacing_widget = wibox.widget.separator,
 	inner_fill_strategy = "justify",
-	layout = wibox.layout.ratio.horizontal,
+	layout = wibox.layout.flex.horizontal,
 }
-stats_widget:ajust_ratio(2, 0.45, 0.05, 0.50)
 
 local stats_wibox = wibox {
 	border_width = beautiful.border_width,
@@ -39,9 +42,9 @@ stats_wibox:setup {
 }
 
 local function _on_charge_change(is_charging, charge)
-	stats_widget.batterytext.text = charge
+	stats_widget.bstack.batterytext.markup = "<span fgcolor='#000000'> " .. charge .. "</span>"
 end
 
-stats_widget.battery:connect_signal("battery_widget::changed", _on_charge_change)
+widget:connect_signal("battery_widget::changed", _on_charge_change)
 
 return stats_wibox

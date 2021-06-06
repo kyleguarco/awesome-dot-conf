@@ -8,7 +8,7 @@ local function debug(msg)
 	if type(msg) == "table" then
 		text = ""
 		for idx, str in ipairs(msg) do
-			text = text..idx..":"..str..","
+			text = text..str..","
 		end
 	end
 

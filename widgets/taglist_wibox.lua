@@ -3,6 +3,10 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
 
+local function _tag_create_callback(self, t, index, tags)
+	self:get_children_by_id("index_role")[1].markup = '<b> '..index..' </b>'
+end
+
 local tag_template_widget = {
 	{
 		{
@@ -19,10 +23,12 @@ local tag_template_widget = {
 	},
 	layout = wibox.layout.stack,
 
-	create_callback = function(self, t, index, tags)
-		self:get_children_by_id("index_role")[1].markup = '<b> '..index..' </b>'
-	end,
+	create_callback = _tag_create_callback,
 }
+
+local function _task_create_callback(self, c, index, clients)
+	self:get_children_by_id("name_role")[1].markup = '<b>'..c.class..'</b>'
+end
 
 local task_template_widget = {
 	{
@@ -41,9 +47,7 @@ local task_template_widget = {
 	},
 	layout = wibox.layout.stack,
 
-	create_callback = function(self, c, index, clients)
-		self:get_children_by_id("name_role")[1].markup = '<b>'..c.class..'</b>'
-	end
+	create_callback = _task_create_callback,
 }
 
 -- The return for this widget must be a function, since `awful.widget.taglist`
@@ -77,7 +81,7 @@ return function(s)
 		height = beautiful.widget_taglist_height,
 		width = beautiful.widget_taglist_width,
 		shape = gears.shape.rectangle,
-		opacity = 0.8,
+		opacity = 0.6,
 		visible = false,
 	}
 	-- This is a workaround for a v4.3 bug.

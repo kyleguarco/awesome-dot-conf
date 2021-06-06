@@ -22,8 +22,14 @@ local function notify(title, msg)
 end
 
 local function volume(action)
-    awful.spawn.with_shell("amixer set Master " .. action)
-    notify("volume " .. action)
+    awful.spawn.easy_async_with_shell(script("volume", "set", "Master", action),
+    function(stdout)
+        -- LEFTON;LEFT;RIGHTON;RIGHT;
+        local data = gears.string.split(stdout, ";")
+        -- Pass in the arguments in reverse (vol first, then enabled)
+        local debug = require("util.debug")
+        widget:emit_signal("volume_widget::volume_changed", data[2], data[1])
+    end)
 end
 
 local function brightness(value)
@@ -51,8 +57,8 @@ local globalkeys = gears.table.join(
     -- HUD
     awful.key({ mod       }, "Escape",
         function()
-            screen.emit_signal("mywidgets::update")
-            screen.emit_signal("mywidgets::show")
+            widget:emit_signal("update")
+            widget:emit_signal("show")
         end,
         meta("awesome", "show menu")),
 
@@ -61,16 +67,16 @@ local globalkeys = gears.table.join(
     awful.key({ mod       }, "Right", awful.tag.viewnext,
         meta("tag", "view next")),
 
-    awful.key({ mod       }, "j", function() awful.client.focus.byidx(1) end,
-        meta("client", "focus next by index")),
-    awful.key({ mod       }, "k", function() awful.client.focus.byidx(-1) end,
+    awful.key({ mod, ctrl }, "Left", function() awful.client.focus.byidx(-1) end,
         meta("client", "focus previous by index")),
+    awful.key({ mod, ctrl }, "Right", function() awful.client.focus.byidx(1) end,
+        meta("client", "focus next by index")),
 
     -- Layout manipulation
-    awful.key({ mod, shft }, "j", function() awful.client.swap.byidx(1) end,
-        meta("client", "swap with next client by index")),
-    awful.key({ mod, shft }, "k", function() awful.client.swap.byidx(-1) end,
+    awful.key({ mod       }, "j", function() awful.client.swap.byidx(-1) end,
         meta("client", "swap with previous client by index")),
+    awful.key({ mod       }, "k", function() awful.client.swap.byidx(1) end,
+        meta("client", "swap with next client by index")),
 
     awful.key({ mod       }, "u", awful.client.urgent.jumpto,
         meta("client", "jump to urgent client")),
@@ -117,10 +123,10 @@ local globalkeys = gears.table.join(
     awful.key({ mod, ctrl }, "space", function() awful.layout.inc(-1) end,
         meta("layout", "view previous")),
 
-    awful.key({ mod, ctrl }, "j", function() awful.screen.focus_relative(1) end,
-        meta("screen", "focus next screen")),
-    awful.key({ mod, ctrl }, "k", function() awful.screen.focus_relative(-1) end,
+    awful.key({ mod, shft }, "Left", function() awful.screen.focus_relative(-1) end,
         meta("screen", "focus the previous screen")),
+    awful.key({ mod, shft }, "Right", function() awful.screen.focus_relative(1) end,
+            meta("screen", "focus next screen")),
 
     awful.key({ mod       }, "Print",
         function()

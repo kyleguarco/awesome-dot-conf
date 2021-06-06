@@ -18,23 +18,38 @@ local default_properties = {
     maximized = false
 }
 
-return {
+local rules = {
     -- All clients will match this rule.
     {   rule = { },
         properties = default_properties
     },
 
     {	rule = { class = "URxvt" },
-    	properties = { size_hints_honor = false }
+    	properties = {
+            size_hints_honor = false
+        }
     },
 
-    {   rule_any = { type = { "normal" } }, 
-        properties = { 
-            titlebars_enabled = true 
+    {   rule_any = { type = { "normal" } },
+        properties = {
+            titlebars_enabled = true
         }
     },
 
     -- Floating clients.
+    {   rule_any = { type = { "floating" } },
+        properties = {
+            titlebars_enabled = false
+        }
+    },
+
+    -- Disable titlebars for the terminal
+    {   rule = { class = "URxvt" },
+        properties = {
+            titlebars_enabled = false
+        }
+    },
+
     {   rule_any = {
             instance = {
                 "DTA",  -- Firefox addon DownThemAll.
@@ -47,6 +62,7 @@ return {
                 "Gimp-2.10",
                 -- Set any Godot window to float (Works around some bugs in 4.0)
                 "Godot",
+				"vncviewer",
             },
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.
@@ -59,9 +75,9 @@ return {
                 "ConfigManager",  -- Thunderbird's about:config.
                 "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
             }
-        }, 
+        },
         except_any = {
-            instance = { 
+            instance = {
                 -- Make an exception to the GIMP editor itself
                 "gimp-2.10",
                 -- ... and the Godot editor windows
@@ -69,7 +85,7 @@ return {
                 "Godot_ProjectList",
             }
         },
-        properties = { 
+        properties = {
             floating = true,
             placement = awful.placement.centered
         },
@@ -77,8 +93,10 @@ return {
 
     -- Popup dialogs
     {   rule_any = { type = { "dialog" } },
-        properties = { 
+        properties = {
             placement = awful.placement.centered
         }
     }
 }
+
+return rules
