@@ -26,8 +26,6 @@ local function volume(action)
     function(stdout)
         -- LEFTON;LEFT;RIGHTON;RIGHT;
         local data = gears.string.split(stdout, ";")
-        -- Pass in the arguments in reverse (vol first, then enabled)
-        local debug = require("util.debug")
         widget:emit_signal("volume_widget::volume_changed", data[2], data[1])
     end)
 end

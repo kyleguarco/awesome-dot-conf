@@ -7,13 +7,16 @@ local volume_widget = require("widgets.volume")
 
 local volume_wibox = wibox {
     border_color = beautiful.border_normal,
-    border_width = 5,
+    border_width = beautiful.border_width,
     widget = volume_widget,
 	height = beautiful.widget_volume_height,
 	width = beautiful.widget_volume_width,
     layout = wibox.layout.flex.horizontal,
 	visible = false,
 }
+
+-- Again, works around a v4.3 bug.
+volume_wibox.input_passthrough = false
 
 local function _set_visibility(v)
 	volume_wibox.ontop = v
@@ -29,7 +32,7 @@ local volume_wibox_timer = gears.timer {
 	end,
 }
 
-local function _on_volume_changed(self)
+local function _on_volume_changed()
 	_set_visibility(true)
 	volume_wibox_timer:again()
 end

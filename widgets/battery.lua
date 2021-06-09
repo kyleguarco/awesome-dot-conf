@@ -26,8 +26,6 @@ local function _on_watch_update(batwidget, stdout)
         batwidget.color = beautiful.widget_bat_normal
     end
 
-    -- So interestingly enough, this emit_signal call pushes arguments onto
-    -- the stack backwards (with data[2] actually being the first argument "is_charging")
     widget:emit_signal("battery_widget::changed", data[1], is_charging)
 end
 

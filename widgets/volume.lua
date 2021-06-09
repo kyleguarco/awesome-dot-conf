@@ -14,9 +14,9 @@ local volume_widget = wibox.widget {
     widget = wibox.widget.progressbar,
 }
 
-local function _on_volume_changed(self, vol, enabled)
+local function _on_volume_changed(_, vol, enabled)
     if enabled == "off" then
-        volume_widget.color = beautiful.white
+        volume_widget.color = beautiful.bg
     else
         volume_widget.color = beautiful.border_focus
     end

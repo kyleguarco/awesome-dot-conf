@@ -2,10 +2,13 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 
+local battery_widget = require("widgets.battery")
+local time_widget = require("widgets.time")
+
 local stats_widget = wibox.widget {
 	{
 		{
-			widget = require("widgets.battery"),
+			widget = battery_widget,
 			id = "battery",
 		},
 		{
@@ -18,7 +21,7 @@ local stats_widget = wibox.widget {
 		id = "bstack",
 	},
 	{
-		widget = require("widgets.time")
+		widget = time_widget
 	},
 
 	spacing = 10,
@@ -41,7 +44,7 @@ stats_wibox:setup {
 	layout = wibox.layout.flex.horizontal,
 }
 
-local function _on_charge_change(is_charging, charge)
+local function _on_charge_change(_, charge, is_charging)
 	stats_widget.bstack.batterytext.markup = "<span fgcolor='#000000'> " .. charge .. "</span>"
 end
 

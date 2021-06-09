@@ -19,9 +19,6 @@ local theme = {
     font                                    = "lemon 12",
     icon_theme                              = "candy-icons",
 
-    white                                   = colordb.white,
-    black                                   = colordb.black,
-
     separator_thinkness                     = 4,
     separator_span_ratio                    = 0.25,
 
