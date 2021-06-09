@@ -3,15 +3,32 @@ local gears = require('gears')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 
-local volume_widget = require("widgets.volume")
+local volume_widget = wibox.widget {
+	{
+		text = "NIL",
+		align = "center",
+		widget = wibox.widget.textbox,
+		id = "volumetext",
+	},
+	{
+		widget = require("widgets.volume"),
+		id = "volume",
+	},
+
+	layout = wibox.layout.ratio.horizontal,
+}
+
+volume_widget:ajust_ratio(1, 0, 0.15, 0.85)
 
 local volume_wibox = wibox {
-    border_color = beautiful.border_normal,
-    border_width = beautiful.border_width,
-    widget = volume_widget,
+	border_width = beautiful.border_width,
+	border_color = beautiful.border_focus,
+	bg = beautiful.bg,
+	fg = beautiful.fg,
 	height = beautiful.widget_volume_height,
 	width = beautiful.widget_volume_width,
-    layout = wibox.layout.flex.horizontal,
+	widget = volume_widget,
+	layout = wibox.layout.flex.horizontal,
 	visible = false,
 }
 
@@ -32,11 +49,12 @@ local volume_wibox_timer = gears.timer {
 	end,
 }
 
-local function _on_volume_changed()
+local function _on_volume_change(_, vol, enabled)
+	volume_widget.volumetext.text = enabled .. " " .. vol
 	_set_visibility(true)
 	volume_wibox_timer:again()
 end
 
-widget:connect_signal("volume_widget::volume_changed", _on_volume_changed)
+widget:connect_signal("volume_widget::volume_changed", _on_volume_change)
 
 return volume_wibox

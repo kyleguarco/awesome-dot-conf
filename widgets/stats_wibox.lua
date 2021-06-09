@@ -24,9 +24,9 @@ local stats_widget = wibox.widget {
 		widget = time_widget
 	},
 
-	spacing = 10,
+	--spacing = 10,
 	--spacing_widget = wibox.widget.separator,
-	inner_fill_strategy = "justify",
+	--inner_fill_strategy = "justify",
 	layout = wibox.layout.flex.horizontal,
 }
 
@@ -37,10 +37,7 @@ local stats_wibox = wibox {
 	fg = beautiful.fg,
 	height = beautiful.widget_stat_height,
 	width = beautiful.widget_stat_width,
-}
-
-stats_wibox:setup {
-	stats_widget,
+	widget = stats_widget,
 	layout = wibox.layout.flex.horizontal,
 }
 

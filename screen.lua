@@ -98,6 +98,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     _fit_wibox(taglist_wibox, awful.placement.top)
 
+    _manage_wibox(volume_wibox)
     _fit_wibox(volume_wibox, awful.placement.bottom)
 end)
 
