@@ -3,3 +3,9 @@
 
 ln -sf $1 ../assets/wallpaper
 
+wal -i ../assets/wallpaper
+cp ~/.cache/wal/colors.Xresources ~/.Xresources.pywal
+
+xrdb -load ~/.Xresources
+
+awesome-client 'awesome.restart()'

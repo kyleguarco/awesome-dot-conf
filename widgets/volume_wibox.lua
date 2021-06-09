@@ -6,7 +6,7 @@ local wibox = require('wibox')
 local volume_widget = wibox.widget {
 	{
 		text = "NIL",
-		align = "center",
+		align = "right",
 		widget = wibox.widget.textbox,
 		id = "volumetext",
 	},
@@ -33,7 +33,7 @@ local volume_wibox = wibox {
 }
 
 -- Again, works around a v4.3 bug.
-volume_wibox.input_passthrough = false
+volume_wibox.input_passthrough = true
 
 local function _set_visibility(v)
 	volume_wibox.ontop = v

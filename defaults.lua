@@ -2,11 +2,6 @@
 -- This is loaded in rc.lua to load the defaults for some services in awesome.
 
 local awful = require('awful')
-local gears = require('gears')
-local naughty = require('naughty')
-local xresources = require('beautiful.xresources')
-
-local dpi = xresources.apply_dpi
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {

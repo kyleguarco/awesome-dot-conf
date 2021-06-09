@@ -20,33 +20,38 @@ do
 end
 -- }}}
 
--- {{{ Global Widget Object
+-- {{{ Load default options for awesome libraries
+require("defaults")
+-- }}}
+
+-- {{{ Load global widget object
 -- Used to connect signals to widgets.
 widget = gears.object {}
 -- }}}
 
+-- {{{ Utility loader
 -- Load various utility functions globally (see `util/init.lua`)
 require("util")
+-- }}}
 
--- Load the new default options for awesome libraries
-require("defaults")
-
--- {{{ Theme Initialization
+-- {{{ Theme initialization
 -- Themes define colours, icons, font and wallpapers.
 -- Required as a global table for on-the-fly changes with 'awesome-client'
 theme = require("theme")
 beautiful.init(theme)
 -- }}}
 
--- Screen Initialization (Creates tags and widgets, see `screen.lua`)
+-- {{{ Screen initialization
+-- Creates tags and widgets (see `screen.lua`)
 require("screen")
+-- }}}
 
 -- {{{ Global input bindings
 root.keys(require("keys.globalkeys"))
 root.buttons(require("keys.globalbuttons"))
 -- }}}
 
--- {{{ Client Initialization
+-- {{{ Client initialization
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = require("client.rules")
 

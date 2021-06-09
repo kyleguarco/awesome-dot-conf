@@ -25,10 +25,12 @@ end
 
 local function _on_volume_changed(_, vol, enabled)
     if enabled == "off" then
-        volume_widget.color = beautiful.bg
-    else
-        volume_widget.color = beautiful.border_focus
+        volume_widget.color = beautiful.border_marked
+        volume_widget.value = 100
+        return
     end
+
+    volume_widget.color = beautiful.border_focus
     volume_widget.value = tonumber(vol)
 end
 
