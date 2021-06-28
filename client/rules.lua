@@ -5,8 +5,8 @@ local clientkeys = require("keys.clientkeys")
 local clientbuttons = require("keys.clientbuttons")
 
 local default_properties = {
-    border_width = beautiful.border_width,
-    border_color = beautiful.border_normal,
+    -- border_width = beautiful.border_width,
+    -- border_color = beautiful.border_normal,
     focus = awful.client.focus.filter,
     raise = true,
     keys = clientkeys,
