@@ -3,6 +3,9 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
+-- `c`: A client
+local _titlebar_widget_new = require("widgets.titlebar")
+
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -18,58 +21,7 @@ client.connect_signal("manage", function (c)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
-
-    local floattext_widget = wibox.widget {
-        text = " floating",
-        visible = false,
-        widget = wibox.widget.textbox,
-    }
-
-    local title_template_widget = {
-        {
-            align  = "center",
-            widget = awful.titlebar.widget.titlewidget(c)
-        },
-        buttons = buttons,
-        layout = wibox.layout.flex.horizontal
-    }
-
-    local button_template_widget = {
-        awful.titlebar.widget.stickybutton(c),
-        awful.titlebar.widget.minimizebutton(c),
-        awful.titlebar.widget.closebutton(c),
-
-        layout = wibox.layout.fixed.horizontal
-    }
-
-    local titlebar = awful.titlebar(c, {
-        font = beautiful.titlebar_font or beautiful.font,
-        position = beautiful.titlebar_position
-    })
-
-    titlebar:setup {
-        floattext_widget,
-        title_template_widget,
-        button_template_widget,
-        layout = wibox.layout.align.horizontal
-    }
-
-    c:connect_signal("property::floating", function()
-        floattext_widget.visible = c.floating
-    end)
-end)
+-- client.connect_signal("request::titlebars", _titlebar_widget_new)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
