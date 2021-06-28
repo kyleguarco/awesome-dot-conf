@@ -77,10 +77,11 @@ local theme = {
     widget_volume_height                    = _dpi(60),
     widget_volume_width                     = _dpi(525),
 
-    widget_bat_margin                       = _dpi(5),
+    widget_bat_margin                       = _dpi(4),
     widget_bat_border_width                 = _dpi(2),
 
-    widget_vol_margin                       = _dpi(20),
+    widget_vol_margin                       = _dpi(4),
+    widget_vol_border_width                 = _dpi(2),
 
     widget_bar_spacing                      = _dpi(15),
     -- Used to offset widgets behind clients.
