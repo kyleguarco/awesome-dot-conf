@@ -7,30 +7,27 @@ local time_widget = require("widgets.time")
 
 local stats_widget = wibox.widget {
 	{
-		align = "right",
-		widget = wibox.widget.textbox,
-		id = "batterytext",
+		{
+			widget = battery_widget,
+			id = "battery",
+		},
+		{
+			align = "center",
+			widget = wibox.widget.textbox,
+			id = "batterytext",
+		},
+		layout = wibox.layout.stack,
+		id = "batbox",
 	},
-	{
-		widget = battery_widget,
-		id = "battery",
-	},
-	{
-		widget = time_widget
-	},
+	time_widget,
 
-	--spacing = 1,
-	--spacing_widget = wibox.widget.separator,
-	inner_fill_strategy = "justify",
 	layout = wibox.layout.ratio.horizontal,
 }
 
-stats_widget:ajust_ratio(2, 0.10, 0.40, 0.50)
+stats_widget:ajust_ratio(1, 0, 0.40, 0.60)
 
 local stats_wibox = wibox {
-	border_width = beautiful.border_width,
-	border_color = beautiful.border_focus,
-	bg = beautiful.bg,
+	bg = beautiful.transparent,
 	fg = beautiful.fg,
 	height = beautiful.widget_stat_height,
 	width = beautiful.widget_stat_width,
@@ -39,7 +36,7 @@ local stats_wibox = wibox {
 }
 
 local function _on_charge_change(_, charge, is_charging)
-	stats_widget.batterytext.text = charge
+	stats_widget.batbox.batterytext.text = charge
 end
 
 widget:connect_signal("battery_widget::changed", _on_charge_change)

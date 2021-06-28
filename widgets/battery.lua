@@ -7,10 +7,10 @@ local wibox = require('wibox')
 local battery_widget = wibox.widget {
     value = 100,
     max_value = 100,
-    border_color = beautiful.border_focus,
+    border_color = beautiful.border_marked,
     border_width = beautiful.widget_bat_border_width,
     background_color = beautiful.bg,
-    color = beautiful.widget_bat_normal,
+    color = beautiful.border_focus,
     margins = beautiful.widget_bat_margin,
     widget = wibox.widget.progressbar,
 }
@@ -24,9 +24,9 @@ local function _on_watch_update(batwidget, stdout)
     batwidget.value = charge
 
     if is_charging then
-        batwidget.color = beautiful.widget_bat_charging
+        batwidget.color = beautiful.border_marked
     else
-        batwidget.color = beautiful.widget_bat_normal
+        batwidget.color = beautiful.border_focus
     end
 
     if charge <= 10 then

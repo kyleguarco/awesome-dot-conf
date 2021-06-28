@@ -29,6 +29,11 @@ local theme = {
     notification_icon_size                  = _dpi(70),
     notification_shape                      = gears.shape.rounded_rect,
 
+    wibar_height                            = _dpi(20),
+    wibar_bg                                = colordb.background,
+    wibar_fg                                = colordb.foreground,
+    wibar_type                              = "desktop",
+
     titlebar_fg                             = colordb.foreground,
     titlebar_bg                             = colordb.color0,
     titlebar_bg_normal                      = colordb.foreground,
@@ -55,6 +60,7 @@ local theme = {
     fg                                      = colordb.color7,
 
     -- Custom theme variables
+    transparent                             = colordb.background .. "00",
     hotkey_popup_width                      = _dpi(1024),
     hotkey_popup_height                     = _dpi(820),
     hotkey_popup_margin                     = _dpi(40),
@@ -63,18 +69,20 @@ local theme = {
 
     widget_stat_height                      = _dpi(55),
     widget_stat_width                       = _dpi(500),
-    widget_taglist_height                   = _dpi(75),
-    widget_taglist_width                    = _dpi(450),
+    widget_taglist_height                   = _dpi(55),
+    widget_taglist_width                    = _dpi(525),
     widget_taglist_margin                   = _dpi(3),
     widget_systray_height                   = _dpi(55),
     widget_systray_width                    = _dpi(500),
-    widget_volume_height                   = _dpi(55),
-    widget_volume_width                    = _dpi(500),
+    widget_volume_height                    = _dpi(60),
+    widget_volume_width                     = _dpi(525),
 
-    widget_bat_normal                       = colordb.foreground,
-    widget_bat_charging                     = colordb.color4,
-    widget_bat_margin                       = _dpi(20),
+    widget_bat_margin                       = _dpi(5),
     widget_bat_border_width                 = _dpi(2),
+
+    widget_vol_margin                       = _dpi(20),
+
+    widget_bar_spacing                      = _dpi(15),
     -- Used to offset widgets behind clients.
     useless_gap_offset                      = _dpi(10),
 }

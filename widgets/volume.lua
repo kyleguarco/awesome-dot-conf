@@ -10,7 +10,7 @@ local volume_widget = wibox.widget {
     border_width = beautiful.useless_gap,
     background_color = beautiful.bg,
     color = beautiful.border_focus,
-    margins = beautiful.widget_bat_margin,
+    margins = beautiful.widget_vol_margin,
     widget = wibox.widget.progressbar,
 }
 
@@ -25,7 +25,7 @@ end
 
 local function _on_volume_changed(_, vol, enabled)
     if enabled == "off" then
-        volume_widget.color = beautiful.border_marked
+        volume_widget.color = beautiful.bg
         volume_widget.value = 100
         return
     end

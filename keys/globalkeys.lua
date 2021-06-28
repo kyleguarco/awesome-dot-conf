@@ -126,11 +126,18 @@ local globalkeys = gears.table.join(
     awful.key({ mod, shft }, "Right", function() awful.screen.focus_relative(1) end,
             meta("screen", "focus next screen")),
 
+    -- Screenshots
     awful.key({ mod       }, "Print",
         function()
-            awful.spawn.with_shell(script("take_screenshot"))
+            awful.spawn.easy_async_with_shell(script("take_screenshot"))
         end,
         meta("screen", "take a screenshot")),
+    awful.key({ mod, alt  }, "Print",
+        function()
+            awful.spawn.easy_async_with_shell(script("take_screenshot_clip"))
+        end,
+        meta("screen", "take a screenshot")),
+
     -- Brightness
     awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
         meta("screen", "increase brightness")),

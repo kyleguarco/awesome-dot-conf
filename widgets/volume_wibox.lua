@@ -5,25 +5,23 @@ local wibox = require('wibox')
 
 local volume_widget = wibox.widget {
 	{
-		text = "NIL",
-		align = "right",
-		widget = wibox.widget.textbox,
-		id = "volumetext",
-	},
-	{
 		widget = require("widgets.volume"),
 		id = "volume",
 	},
+	{
+		text = "NIL",
+		align = "center",
+		widget = wibox.widget.textbox,
+		id = "volumetext",
+	},
 
-	layout = wibox.layout.ratio.horizontal,
+	layout = wibox.layout.stack,
 }
 
-volume_widget:ajust_ratio(1, 0, 0.15, 0.85)
+--volume_widget:ajust_ratio(1, 0, 0.15, 0.85)
 
 local volume_wibox = wibox {
-	border_width = beautiful.border_width,
-	border_color = beautiful.border_focus,
-	bg = beautiful.bg,
+	bg = beautiful.transparent,
 	fg = beautiful.fg,
 	height = beautiful.widget_volume_height,
 	width = beautiful.widget_volume_width,

@@ -3,85 +3,22 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
 
-local function _tag_create_callback(self, t, index, tags)
-	self:get_children_by_id("index_role")[1].markup = '<b> '..index..' </b>'
-end
-
-local tag_template_widget = {
-	{
-		{
-			{
-				align = "center",
-				widget = wibox.widget.textbox,
-				id = 'index_role',
-			},
-			margins = 4,
-			widget = wibox.container.margin,
-		},
-		widget = wibox.container.background,
-		id = "background_role",
-	},
-	layout = wibox.layout.stack,
-
-	create_callback = _tag_create_callback,
-}
-
-local function _task_create_callback(self, c, index, clients)
-	self:get_children_by_id("name_role")[1].markup = '<b>'..c.class..'</b>'
-end
-
-local task_template_widget = {
-	{
-		{
-			{
-				align = "center",
-				valign = "center",
-				widget = wibox.widget.textbox,
-				id = "name_role",
-			},
-			margins = 2,
-			widget = wibox.container.margin,
-		},
-		widget = wibox.container.background,
-		id = "background_role",
-	},
-	layout = wibox.layout.stack,
-
-	create_callback = _task_create_callback,
-}
+-- `s`: The screen which this wibox will be drawn onto
+local _taglist_widget_new = require("widgets.taglist")
+local _tasklist_widget_new = require("widgets.tasklist")
 
 -- The return for this widget must be a function, since `awful.widget.taglist`
 -- requires a screen as an argument, which can't be a constant during setup.
 return function(s)
-	local taglist_widget = awful.widget.taglist {
-		screen = s,
-		filter = awful.widget.taglist.filter.all,
-		widget_template = tag_template_widget,
-		layout = {
-			inner_fill_strategy = "justify",
-			layout = wibox.layout.ratio.horizontal
-		},
-	}
-
-	local tasklist_widget = awful.widget.tasklist {
-		screen = s,
-		filter = awful.widget.tasklist.filter.currenttags,
-		widget_template = task_template_widget,
-		layout = {
-			inner_fill_strategy = "justify",
-			layout = wibox.layout.ratio.horizontal
-		},
-	}
+	local taglist_widget = _taglist_widget_new(s)
+	local tasklist_widget = _tasklist_widget_new(s)
 
 	local taglist_wibox = wibox {
-		border_width = beautiful.border_width,
-		border_color = beautiful.border_focus,
-		bg = beautiful.bg,
+		bg = beautiful.transparent,
 		fg = beautiful.fg,
 		height = beautiful.widget_taglist_height,
 		width = beautiful.widget_taglist_width,
 		shape = gears.shape.rectangle,
-		opacity = 0.6,
 		visible = false,
 	}
 	-- This is a workaround for a v4.3 bug.
@@ -111,7 +48,7 @@ return function(s)
 			margins = 2 * beautiful.widget_taglist_margin,
 			layout = wibox.container.margin,
 		},
-		layout = wibox.layout.ratio.vertical,
+		layout = wibox.layout.ratio.horizontal,
 	}
 	r_taglist_widget:ajust_ratio(1, 0, 0.4, 0.6)
 

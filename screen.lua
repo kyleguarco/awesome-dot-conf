@@ -4,20 +4,17 @@
 local awful = require('awful')
 local gears = require('gears')
 local wibox = require('wibox')
+local naughty = require('naughty')
 local beautiful = require('beautiful')
 
--- The default arguments for widget placement functions
-local c_default_widget_args = {
-    attach = true,
-    honor_padding = true,
-    honor_workarea = true,
-    -- Sets all margins to the useless_gap of the workspace.
-    margins = beautiful.useless_gap + beautiful.useless_gap_offset,
-}
+local manage = require("util.manage_wibox")
 
 -- `s`: The screen which this wibox will be drawn onto
 -- The new taglist function returned by the taglist script
-local _taglist_wibox_new = require("widgets.taglist_wibox")
+-- local _taglist_wibox_new = require("widgets.taglist_wibox")
+-- local _fit_wibox = manage.fit_wibox
+-- local _manage_wibox = manage.manage_wibox
+local _wibar_wibox_new = require("widgets.taskbar_wibox")
 
 -- Sets the wallpaper on screen `s`
 local function _set_wallpaper(s)
@@ -32,51 +29,6 @@ local function _set_wallpaper(s)
     end
 end
 
--- `drawable`: A wibox; `placement`: An `awful.placement` function
--- Fits a wibox to a part of the screen with default arguments
-local function _fit_wibox(drawable, placement, args)
-    if args then
-        gears.table.crush(c_default_widget_args, args)
-    else
-        args = c_default_widget_args
-    end
-
-    drawable.placement = placement
-    placement(drawable, args)
-end
-
--- `w`: A wibox
--- Toggles a wibox' visibility according to the number of clients.
-local function _manage_visi(w)
-    return function()
-        if not w.ontop then
-            w.visible = #awful.screen.focused().selected_tag:clients() == 0
-        end
-    end
-end
-
--- `w`: A wibox
--- Toggles a wibox' visibility as requested by 'mywidgets::show'
-local function _manage_visi_force(w)
-    return function()
-        w.ontop = not w.ontop
-        if not w.ontop then
-            w.visible = #awful.screen.focused().selected_tag:clients() == 0
-        else
-            w.visible = true
-        end
-    end
-end
-
--- `w`: A wibox
--- Connects wibox `w` to signals that can trigger `_manage_visi[_force]`
-local function _manage_wibox(w)
-    widget:connect_signal("show", _manage_visi_force(w))
-    screen.connect_signal("tag::history::update", _manage_visi(w))
-    client.connect_signal("manage", _manage_visi(w))
-    client.connect_signal("unmanage", _manage_visi(w))
-end
-
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     _set_wallpaper(s)
@@ -85,22 +37,39 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Widget setup
-    local stats_wibox = require("widgets.stats_wibox")
-    local systray_wibox = require("widgets.systray_wibox")
-    local volume_wibox = require("widgets.volume_wibox")
-    local taglist_wibox = _taglist_wibox_new(s)
+    -- s.stats_wibox = require("widgets.stats_wibox")
+    -- s.systray_wibox = require("widgets.systray_wibox")
+    -- s.volume_wibox = require("widgets.volume_wibox")
+    -- s.taglist_wibox = _taglist_wibox_new(s)
 
-    _manage_wibox(stats_wibox)
-    _fit_wibox(stats_wibox, awful.placement.top_left)
+    -- _manage_wibox(s.stats_wibox)
+    -- _fit_wibox(s.stats_wibox, awful.placement.top_left)
 
-    _manage_wibox(systray_wibox)
-    _fit_wibox(systray_wibox, awful.placement.top_right)
+    -- _manage_wibox(s.systray_wibox)
+    -- _fit_wibox(s.systray_wibox, awful.placement.top_right)
 
-    _fit_wibox(taglist_wibox, awful.placement.top)
+    -- _fit_wibox(s.taglist_wibox, awful.placement.top)
+    -- _manage_wibox(s.taglist_wibox)
 
-    _manage_wibox(volume_wibox)
-    _fit_wibox(volume_wibox, awful.placement.bottom)
+    -- _manage_wibox(s.volume_wibox)
+    -- _fit_wibox(s.volume_wibox, awful.placement.next_to, {
+    --     geometry = s.taglist_wibox,
+    --     preferred_positions = "bottom",
+    -- })
+
+    s.taskbar = _wibar_wibox_new(s)
 end)
+
+local function _on_screen_added()
+    naughty.notify({
+        title = "Screen added!",
+        text = "A new screen has been connected. Opening Arandr.",
+    })
+
+    awful.spawn("arandr")
+end
+
+screen.connect_signal("added", _on_screen_added)
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", _set_wallpaper)
