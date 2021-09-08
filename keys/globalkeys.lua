@@ -30,11 +30,6 @@ local function volume(action)
     end)
 end
 
-local function brightness(value)
-    --awful.spawn.with_shell("xbacklight -inc " .. value)
-    notify("brightness " .. value)
-end
-
 local globalkeys = gears.table.join(
     awful.key({ mod,      }, "s",
         function()
@@ -52,6 +47,8 @@ local globalkeys = gears.table.join(
         meta("awesome", "reload awesome")),
     awful.key({ mod, shft }, "q", awesome.quit,
         meta("awesome", "quit awesome")),
+	awful.key({ mod       }, "w", function() awful.spawn("xscreensaver-command -lock") end,
+		meta("awesome", "lock the user")),
     -- HUD
     awful.key({ mod       }, "Escape",
         function()
@@ -104,17 +101,17 @@ local globalkeys = gears.table.join(
     awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -show window -show-icons") end,
         meta("client", "Show the rofi window switcher")),
 
-    awful.key({ mod       }, "l",     function() awful.tag.incmwfact(0.05) end,
+    awful.key({ mod, ctrl }, "l",     function() awful.tag.incmwfact(0.05) end,
         meta("layout", "increase master width factor")),
-    awful.key({ mod       }, "h",     function() awful.tag.incmwfact(-0.05) end,
+    awful.key({ mod, ctrl }, "h",     function() awful.tag.incmwfact(-0.05) end,
         meta("layout", "decrease master width factor")),
-    awful.key({ mod, shft }, "h",     function() awful.tag.incnmaster(1, nil, true) end,
+    awful.key({ mod       }, "h",     function() awful.tag.incnmaster(1, nil, true) end,
         meta("layout", "increase the number of master clients")),
     awful.key({ mod       }, "l",     function() awful.tag.incnmaster(-1, nil, true) end,
-        meta("layout", "increase the number of master clients")),
-    awful.key({ mod       }, "h",     function() awful.tag.incncol(1, nil, true) end,
+        meta("layout", "decrease the number of master clients")),
+    awful.key({ mod, shft }, "h",     function() awful.tag.incncol(1, nil, true) end,
         meta("layout", "increase the number of columns")),
-    awful.key({ mod       }, "l",     function() awful.tag.incncol(-1, nil, true) end,
+    awful.key({ mod, shft }, "l",     function() awful.tag.incncol(-1, nil, true) end,
         meta("layout", "decrease the number of columns")),
     awful.key({ mod       }, "space", function() awful.layout.inc(1) end,
         meta("layout", "view next")),
@@ -127,24 +124,12 @@ local globalkeys = gears.table.join(
             meta("screen", "focus next screen")),
 
     -- Screenshots
-    awful.key({ mod       }, "Print",
-        function()
-            awful.spawn.easy_async_with_shell(script("take_screenshot"))
-        end,
+    awful.key({ mod       }, "Print", function() awful.spawn.easy_async(script("take_screenshot")) end,
         meta("screen", "take a screenshot")),
-    awful.key({ mod, alt  }, "Print",
-        function()
-            awful.spawn.easy_async_with_shell(script("take_screenshot_clip"))
-        end,
-        meta("screen", "take a screenshot")),
+    awful.key({ mod, alt  }, "Print", function() awful.spawn.easy_async(script("take_screenshot_clip")) end,
+        meta("screen", "take a screenshot and copy to memory")),
 
-    -- Brightness
-    awful.key({           }, "XF86MonBrightnessUp", function() brightness("2.5") end,
-        meta("screen", "increase brightness")),
-    awful.key({           }, "XF86MonBrightnessDown", function() brightness("-2.5") end,
-        meta("screen", "decrease brightness")),
-
-    -- Standard program
+	-- Standard program
     awful.key({ mod       }, "Return", function() awful.spawn("urxvt") end,
         meta("launcher", "open a terminal")),
 

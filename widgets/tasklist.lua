@@ -2,28 +2,30 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 
-local function _task_create_callback(self, c, index, clients)
-	self:get_children_by_id("name_role")[1].markup = '<b>'..c.class..'</b>'
-end
-
 local task_template_widget = {
 	{
-		{
-			{
-				align = "center",
-				valign = "center",
-				widget = wibox.widget.textbox,
-				id = "name_role",
-			},
-			margins = 2,
-			widget = wibox.container.margin,
-		},
+		wibox.widget.base.make_widget(),
+		forced_height = 3,
 		widget = wibox.container.background,
 		id = "background_role",
 	},
-	layout = wibox.layout.stack,
-
-	create_callback = _task_create_callback,
+	{
+		{
+			{
+				widget = wibox.widget.imagebox,
+				id = "icon_role",
+			},
+			{
+				widget = wibox.widget.textbox,
+				id = "text_role",
+			},
+			spacing = 2,
+			layout = wibox.layout.fixed.horizontal,
+		},
+		margins = 3,
+		widget = wibox.container.margin
+	},
+	layout = wibox.layout.align.vertical,
 }
 
 return function(s)

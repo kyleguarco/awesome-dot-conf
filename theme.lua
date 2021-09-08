@@ -29,7 +29,7 @@ local theme = {
     notification_icon_size                  = _dpi(70),
     notification_shape                      = gears.shape.rounded_rect,
 
-    wibar_height                            = _dpi(20),
+    wibar_height                            = _dpi(22),
     wibar_bg                                = colordb.background,
     wibar_fg                                = colordb.foreground,
     wibar_type                              = "desktop",

@@ -53,8 +53,12 @@ end
 
 -- `w`: A wibox
 -- Connects wibox `w` to signals that can trigger `_manage_visi[_force]`
-function manage_wibox.manage_wibox(w)
+function manage_wibox.manage_wibox(w, show_only)
+    show_only = show_only or false
+
     widget:connect_signal("show", _manage_visi_force(w))
+    if show_only then return end
+
     screen.connect_signal("tag::history::update", _manage_visi(w))
     client.connect_signal("manage", _manage_visi(w))
     client.connect_signal("unmanage", _manage_visi(w))

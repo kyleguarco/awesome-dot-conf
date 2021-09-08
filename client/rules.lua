@@ -62,6 +62,7 @@ local rules = {
                 "Gimp-2.10",
                 -- Set any Godot window to float (Works around some bugs in 4.0)
                 "Godot",
+				"Godot_Engine",
 				"vncviewer",
             },
             -- Note that the name property shown in xprop might be set slightly after creation of the client
