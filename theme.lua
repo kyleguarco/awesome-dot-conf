@@ -14,10 +14,10 @@ local _dpi = xresources.apply_dpi
 
 local theme = {
     -- "wallpaper" should be a symlink (see script/set_wallpaper.sh)
-    wallpaper                               = asset "wallpaper",
+    wallpaper                               = get_home_dir() .. ".wallpaper",
 
-    font                                    = "lemon 12",
-    icon_theme                              = "candy-icons",
+    font                                    = "lemon",
+    icon_theme                              = "Arc",
 
     separator_thinkness                     = 4,
     separator_span_ratio                    = 0.25,
@@ -38,14 +38,6 @@ local theme = {
     titlebar_bg                             = colordb.color0,
     titlebar_bg_normal                      = colordb.foreground,
     titlebar_fg_normal                      = colordb.color0,
-    titlebar_close_button_focus             = asset "window_close.png",
-    titlebar_close_button_normal            = asset "window_close.png",
- 	titlebar_minimize_button_focus          = asset "window_minimize.png",
-	titlebar_minimize_button_normal         = asset "window_minimize.png",
-	titlebar_sticky_button_focus_active     = asset "window_sticky_active.png",
-	titlebar_sticky_button_normal_active    = asset "window_sticky_active.png",
-	titlebar_sticky_button_focus_inactive   = asset "window_sticky_inactive.png",
-	titlebar_sticky_button_normal_inactive  = asset "window_sticky_inactive.png",
 
     bg_systray                              = colordb.background,
     systray_icon_spacing                    = _dpi(1),
@@ -57,7 +49,7 @@ local theme = {
     border_marked                           = colordb.color7,
 
     bg                                      = colordb.background,
-    fg                                      = colordb.color7,
+    fg                                      = colordb.foreground,
 
     -- Custom theme variables
     transparent                             = colordb.background .. "00",
@@ -67,23 +59,6 @@ local theme = {
 
     titlebar_position                       = "bottom",
 
-    widget_stat_height                      = _dpi(55),
-    widget_stat_width                       = _dpi(500),
-    widget_taglist_height                   = _dpi(55),
-    widget_taglist_width                    = _dpi(525),
-    widget_taglist_margin                   = _dpi(3),
-    widget_systray_height                   = _dpi(55),
-    widget_systray_width                    = _dpi(500),
-    widget_volume_height                    = _dpi(60),
-    widget_volume_width                     = _dpi(525),
-
-    widget_bat_margin                       = _dpi(4),
-    widget_bat_border_width                 = _dpi(2),
-
-    widget_vol_margin                       = _dpi(4),
-    widget_vol_border_width                 = _dpi(2),
-
-    widget_bar_spacing                      = _dpi(15),
     -- Used to offset widgets behind clients.
     useless_gap_offset                      = _dpi(10),
 }

@@ -3,8 +3,6 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
 
-local time_widget = require("widgets.time")
-
 -- `action`: "set" or "get"; `perc`: Used on "set", sets the volume
 local _update_volume = require("util.update_volume")
 
@@ -72,6 +70,11 @@ end
 awesome.connect_signal("volume::volume_changed", _on_volume_change)
 awesome.connect_signal("startup", _on_startup_volume)
 
+local time_widget = wibox.widget {
+	align = "center",
+	widget = wibox.widget.textclock ("%A %m/%d/%y (%I:%M%p)"),
+}
+
 local systray_widget = wrap_in_margins {
 	forced_width = 100,
 	widget = wibox.widget.systray(),
@@ -87,7 +90,7 @@ return function(s)
 	wibar:setup {
 		{
 			_taglist_widget_new(s),
-			spacing = 5,
+			spacing = 10,
 			layout = wibox.layout.fixed.horizontal,
 		},
 		{
