@@ -5,6 +5,9 @@ local gears = require('gears')
 
 local time_widget = require("widgets.time")
 
+-- `action`: "set" or "get"; `perc`: Used on "set", sets the volume
+local _update_volume = require("util.update_volume")
+
 -- `s`: The screen which this wibox will be drawn onto
 local _taglist_widget_new = require("widgets.taglist")
 local _tasklist_widget_new = require("widgets.tasklist")
@@ -45,16 +48,29 @@ local battery_widget = wrap_in_margins {
 local battery_widget = awful.widget.watch(script("get_power"), 4,
 	update_battery_widget, battery_widget)
 
--- local function _on_volume_change(_, vol, enabled)
--- 	vol = tonumber(vol)
+local volume_widget = wrap_in_margins {
+	align = "left",
+	widget = wibox.widget.textbox,
+	id = "text",
+}
 
--- 	if enabled == "off" or vol == 0 then
--- 		volume_widget.volumetext.text = "🔈" .. vol
--- 		return
--- 	end
+local function _on_volume_change(vol, enabled)
+	vol = tonumber(vol)
 
--- 	volume_widget.volumetext.text = "🔊" .. vol
--- end
+	if enabled == "off" or vol == 0 then
+		volume_widget.text.text = "🔈" .. vol
+		return
+	end
+
+	volume_widget.text.text = "🔊" .. vol
+end
+
+local function _on_startup_volume()
+	_update_volume("get")
+end
+
+awesome.connect_signal("volume::volume_changed", _on_volume_change)
+awesome.connect_signal("startup", _on_startup_volume)
 
 local systray_widget = wrap_in_margins {
 	forced_width = 100,
@@ -76,12 +92,12 @@ return function(s)
 		},
 		{
 			_tasklist_widget_new(s),
-			spacing = 5,
 			layout = wibox.layout.flex.horizontal,
 		},
 		{
 			systray_widget,
 			battery_widget,
+			volume_widget,
 			time_widget,
 			spacing = 5,
 			layout = wibox.layout.fixed.horizontal,

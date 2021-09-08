@@ -4,6 +4,9 @@ local gears = require('gears')
 local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup.widget')
 
+-- `action`: "set" or "get"; `perc`: Used on "set", sets the volume
+local _update_volume = require("util.update_volume")
+
 -- Modifiers
 local modkeys = require("keys.modkey")
 local mod, alt, ctrl, shft = modkeys.m, modkeys.a, modkeys.c, modkeys.s
@@ -19,15 +22,6 @@ local function notify(title, msg)
     action.text = msg or nil
 
     naughty.notify(action)
-end
-
-local function volume(action)
-    awful.spawn.easy_async_with_shell(script("volume", "set", "Master", action),
-    function(stdout)
-        -- LEFTON;LEFT;RIGHTON;RIGHT;
-        local data = gears.string.split(stdout, ";")
-        widget:emit_signal("volume_widget::volume_changed", data[2], data[1])
-    end)
 end
 
 local globalkeys = gears.table.join(
@@ -138,13 +132,13 @@ local globalkeys = gears.table.join(
         meta("launcher", "rofi run prompt")),
 
     -- Volume Keys
-    awful.key({           }, "XF86AudioRaiseVolume", function() volume("5%+") end,
+    awful.key({           }, "XF86AudioRaiseVolume", function() _update_volume("set", "5%+") end,
         meta("audio", "raise volume")),
 
-    awful.key({           }, "XF86AudioLowerVolume", function() volume("5%-") end,
+    awful.key({           }, "XF86AudioLowerVolume", function() _update_volume("set", "5%-") end,
         meta("audio", "lower volume")),
 
-    awful.key({           }, "XF86AudioMute", function() volume("toggle") end,
+    awful.key({           }, "XF86AudioMute", function() _update_volume("set", "toggle") end,
         meta("audio", "mute"))
 )
 

@@ -5,10 +5,8 @@ local gears = require('gears')
 local naughty = require('naughty')
 local beautiful = require('beautiful')
 
-local manage = require("util.manage_wibox")
-
 -- `w`: A wibox; `show_only`: Only triggers the visibility signals
-local _manage_wibox = manage.manage_wibox
+local _manage_wibox = require("util.manage_wibox").manage_wibox
 
 -- `s`: The screen which this wibox will be drawn onto
 local _taskbar_wibar_new = require("widgets.taskbar")
