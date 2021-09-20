@@ -13,8 +13,9 @@ local _tasklist_widget_new = require("widgets.tasklist")
 local function wrap_in_margins(base)
 	return wibox.widget {
 		base,
-		top = 3,
+		top = beautiful.wibar_widget_margin or 3,
 		color = beautiful.fg,
+		draw_empty = false,
 		widget = wibox.container.margin,
 	}
 end
@@ -76,7 +77,7 @@ local time_widget = wibox.widget {
 }
 
 local systray_widget = wrap_in_margins {
-	forced_width = 100,
+	base_size = beautiful.wibar_systray_iconsize or 64,
 	widget = wibox.widget.systray(),
 }
 
@@ -90,7 +91,7 @@ return function(s)
 	wibar:setup {
 		{
 			_taglist_widget_new(s),
-			spacing = 10,
+			spacing = beautiful.wibar_widget_tagspace or 10,
 			layout = wibox.layout.fixed.horizontal,
 		},
 		{
@@ -102,7 +103,8 @@ return function(s)
 			battery_widget,
 			volume_widget,
 			time_widget,
-			spacing = 5,
+			spacing = beautiful.wibar_widget_statspace or 10,
+			fill_space = true,
 			layout = wibox.layout.fixed.horizontal,
 		},
 		layout = wibox.layout.align.horizontal,

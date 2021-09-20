@@ -1,4 +1,4 @@
--- update_volume.lau (local scope)
+-- update_volume.lua (local scope)
 local awful = require('awful')
 local gears = require('gears')
 

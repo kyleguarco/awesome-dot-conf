@@ -5,7 +5,7 @@ local wibox = require('wibox')
 local task_template_widget = {
 	{
 		wibox.widget.base.make_widget(),
-		forced_height = 3,
+		forced_height = beautiful.wibar_widget_margin or 3,
 		widget = wibox.container.background,
 		id = "background_role",
 	},
@@ -20,9 +20,10 @@ local task_template_widget = {
 				id = "text_role",
 			},
 			spacing = 2,
+			fill_space = true,
 			layout = wibox.layout.fixed.horizontal,
 		},
-		margins = 3,
+		margins = 2,
 		widget = wibox.container.margin
 	},
 	layout = wibox.layout.align.vertical,

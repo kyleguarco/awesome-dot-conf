@@ -12,11 +12,13 @@ local xresources = require('beautiful.xresources')
 local colordb = xresources.get_current_theme()
 local _dpi = xresources.apply_dpi
 
+local font = "lemon"
+
 local theme = {
     -- "wallpaper" should be a symlink (see script/set_wallpaper.sh)
     wallpaper                               = get_home_dir() .. ".wallpaper",
 
-    font                                    = "lemon",
+    font                                    = font,
     icon_theme                              = "Arc",
 
     separator_thinkness                     = 4,
@@ -29,10 +31,15 @@ local theme = {
     notification_icon_size                  = _dpi(70),
     notification_shape                      = gears.shape.rounded_rect,
 
-    wibar_height                            = _dpi(22),
+    wibar_height                            = _dpi(24),
     wibar_bg                                = colordb.background,
     wibar_fg                                = colordb.foreground,
     wibar_type                              = "desktop",
+
+    tasklist_align                          = "center",
+    tasklist_font_minimized                 = font .. " Italic",
+    tasklist_font_urgent                    = font .. " Bold",
+    tasklist_bg_minimize                    = colordb.color7,
 
     titlebar_fg                             = colordb.foreground,
     titlebar_bg                             = colordb.color0,
@@ -40,9 +47,8 @@ local theme = {
     titlebar_fg_normal                      = colordb.color0,
 
     bg_systray                              = colordb.background,
-    systray_icon_spacing                    = _dpi(1),
+    systray_icon_spacing                    = _dpi(4),
 
-    useless_gap                             = 0, --_dpi(4),
     border_width                            = _dpi(2),
     border_normal                           = colordb.color8,
     border_focus                            = colordb.color13,
@@ -61,6 +67,14 @@ local theme = {
 
     -- Used to offset widgets behind clients.
     useless_gap_offset                      = _dpi(10),
+
+    taglist_tag_spacing                     = _dpi(4),
+    taglist_tag_textmargin                  = _dpi(1),
+    taglist_tag_forcewidth                  = _dpi(30),
+    wibar_systray_iconsize                  = _dpi(20),
+    wibar_widget_margin                     = _dpi(2),
+    wibar_widget_tagspace                   = _dpi(4),
+    wibar_widget_statspace                  = _dpi(6),
 }
 
 -- Merge the default theme with the custom one.

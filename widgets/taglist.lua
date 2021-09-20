@@ -10,13 +10,13 @@ local tag_template_widget = {
 				widget = wibox.widget.textbox,
 				id = 'text_role',
 			},
-			margins = 3,
+			margins = beautiful.taglist_tag_textmargin or 3,
 			widget = wibox.container.margin,
 		},
 		widget = wibox.container.background,
 		id = "background_role",
 	},
-	forced_width = 32,
+	forced_width = beautiful.taglist_tag_forcewidth or 32,
 	layout = wibox.layout.stack,
 }
 
@@ -26,7 +26,7 @@ return function(s)
 		filter = awful.widget.taglist.filter.all,
 		widget_template = tag_template_widget,
 		layout = {
-			spacing = 4,
+			spacing = beautiful.taglist_tag_spacing or 4,
 			layout = wibox.layout.fixed.horizontal
 		},
 	}

@@ -1,6 +1,8 @@
 #!/bin/bash
 # Links an image to the parent's asset folder for a wallpaper
 
+wal -c
+
 ln -sf $1 ~/.wallpaper
 
 wal -i ~/.wallpaper
