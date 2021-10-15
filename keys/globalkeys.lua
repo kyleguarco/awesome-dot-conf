@@ -25,17 +25,7 @@ local function notify(title, msg)
 end
 
 local globalkeys = gears.table.join(
-    awful.key({ mod,      }, "s",
-        function()
-            -- This is done because there's a bug where some of the
-            -- hotkeys are hidden outside the widget.
-            local popup = hotkeys_popup.new {
-                width = beautiful.hotkey_popup_width,
-                height = beautiful.hotkey_popup_height,
-                group_margins = beautiful.hotkey_popup_margin,
-            }
-            popup:show_help()
-        end,
+    awful.key({ mod,      }, "s", function() hotkeys_popup:show_help() end,
         meta("awesome", "show help")),
     awful.key({ mod, ctrl }, "r", awesome.restart,
         meta("awesome", "reload awesome")),

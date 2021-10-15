@@ -21,15 +21,19 @@ local theme = {
     font                                    = font,
     icon_theme                              = "Arc",
 
+    hotkeys_border_width                    = _dpi(1),
+    hotkeys_group_margin                    = _dpi(4),
+    hotkeys_modifiers_fg                    = colordb.color12,
+
     separator_thinkness                     = 4,
     separator_span_ratio                    = 0.25,
 
-    notification_border_width               = _dpi(4),
-    notification_border_color               = colordb.color7,
-    notification_spacing                    = _dpi(4),
-    notification_width                      = _dpi(600),
-    notification_icon_size                  = _dpi(70),
-    notification_shape                      = gears.shape.rounded_rect,
+    notification_border_width               = _dpi(3),
+    notification_border_color               = colordb.color6,
+    notification_spacing                    = _dpi(5),
+    notification_width                      = _dpi(550),
+    notification_icon_size                  = _dpi(60),
+    notification_shape                      = gears.shape.octogon,
 
     wibar_height                            = _dpi(24),
     wibar_bg                                = colordb.background,
@@ -72,7 +76,7 @@ local theme = {
     taglist_tag_textmargin                  = _dpi(1),
     taglist_tag_forcewidth                  = _dpi(30),
     wibar_systray_iconsize                  = _dpi(20),
-    wibar_widget_margin                     = _dpi(2),
+    wibar_widget_margin                     = _dpi(3),
     wibar_widget_tagspace                   = _dpi(4),
     wibar_widget_statspace                  = _dpi(6),
 }

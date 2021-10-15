@@ -8,7 +8,7 @@ local function update_volume(action, perc)
     awful.spawn.easy_async_with_shell(cmd, function(stdout)
         -- LEFTON;LEFT;RIGHTON;RIGHT;
         local data = gears.string.split(stdout, ";")
-        awesome.emit_signal("volume::volume_changed", data[2], data[1])
+        widget:emit_signal("volume::volume_changed", data[2], data[1])
     end)
 end
 

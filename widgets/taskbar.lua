@@ -39,7 +39,7 @@ local function update_battery_widget(widget, stdout)
 end
 
 local battery_widget = wrap_in_margins {
-	align = "left",
+	align = "center",
 	widget = wibox.widget.textbox,
 	id = "text",
 }
@@ -48,12 +48,12 @@ local battery_widget = awful.widget.watch(script("get_power"), 4,
 	update_battery_widget, battery_widget)
 
 local volume_widget = wrap_in_margins {
-	align = "left",
+	align = "center",
 	widget = wibox.widget.textbox,
 	id = "text",
 }
 
-local function _on_volume_change(vol, enabled)
+local function _on_volume_change(_, vol, enabled)
 	vol = tonumber(vol)
 
 	if enabled == "off" or vol == 0 then
@@ -68,11 +68,11 @@ local function _on_startup_volume()
 	_update_volume("get")
 end
 
-awesome.connect_signal("volume::volume_changed", _on_volume_change)
+widget:connect_signal("volume::volume_changed", _on_volume_change)
 awesome.connect_signal("startup", _on_startup_volume)
 
 local time_widget = wibox.widget {
-	align = "center",
+	align = "left",
 	widget = wibox.widget.textclock ("%A %m/%d/%y (%I:%M%p)"),
 }
 

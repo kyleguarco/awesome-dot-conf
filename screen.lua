@@ -32,19 +32,7 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "I", "II", "III", "IV" }, s, awful.layout.layouts[1])
 
     s.taskbar = _taskbar_wibar_new(s)
-    _manage_wibox(s.taskbar, true)
 end)
-
-local function _on_screen_added()
-    naughty.notify({
-        title = "Screen added!",
-        text = "A new screen has been connected. Opening Arandr.",
-    })
-
-    awful.spawn("arandr")
-end
-
-screen.connect_signal("added", _on_screen_added)
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
