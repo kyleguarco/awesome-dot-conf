@@ -1,6 +1,4 @@
 local awful = require('awful')
-require('awful.autofocus')
-local gears = require('gears')
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
@@ -21,7 +19,20 @@ end
 -- }}}
 
 -- {{{ Load default options for awesome libraries
-require("defaults")
+--- Table of layouts to cover with awful.layout.inc, order matters.
+awful.layout.append_default_layouts {
+    awful.layout.suit.max,
+    -- awful.layout.suit.max.fullscreen,
+    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.floating,
+    -- awful.layout.suit.corner.nw,
+    -- awful.layout.suit.corner.ne,
+    -- awful.layout.suit.corner.sw,
+    -- awful.layout.suit.corner.se,
+}
 -- }}}
 
 -- {{{ Utility loader

@@ -6,10 +6,12 @@ local wibox = require('wibox')
 local battery_widget = require("widgets.battery")
 
 local battery_popup = awful.popup {
+	bg = beautiful.bg,
 	widget = battery_widget,
-	placement = awful.placement.top,
+	placement = function(d) awful.placement.top(d, { margins = 8 }) end,
 	shape = gears.shape.rounded_rect,
 	hide_on_right_click = true,
+	type = "dock",
 	visible = false,
 	ontop = true,
 }

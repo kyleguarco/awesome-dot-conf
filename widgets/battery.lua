@@ -3,7 +3,7 @@ local gears = require('gears')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 
-local dpi = require('beautiful.xresources').apply_dpi
+local dpi = beautiful.xresources.apply_dpi
 
 local label_widget = wibox.widget {
 	align = "center",
@@ -21,8 +21,6 @@ local bar_widget = wibox.widget {
 	background_color = beautiful.fg,
 	max_value = 100,
 	value = 0,
-	width = dpi(200),
-	height = dpi(8),
 	shape = gears.shape.rounded_bar,
 	widget = wibox.widget.progressbar
 }
@@ -30,11 +28,16 @@ local bar_widget = wibox.widget {
 local final_widget = wibox.widget {
 	{
 		id = "inner",
-		{ id = "label", widget = label_widget },
-		{ 
-			id = "bar",
-			{ id = "innerbar", widget = bar_widget },
-			{ id = "percent", widget = percent_widget },
+		{ id = "iconlabel", widget = label_widget },
+		{ id = "innerbar",
+			{ id = "barbox",
+				{ id = "bar", widget = bar_widget },
+				strategy = "max",
+				width = dpi(200),
+				height = dpi(20),
+				widget = wibox.container.constraint
+			},
+			{ id = "barlabel", widget = percent_widget },
 			layout = wibox.layout.stack,
 		},
 		layout = wibox.layout.ratio.horizontal,
@@ -53,16 +56,16 @@ return awful.widget.watch(script("get_power"), 4, function(widget, output)
 	is_ac = data[2] == "1"
 	
 	if not is_ac then
-		widget.inner.label.text = "⏻ "
+		widget.inner.iconlabel.text = "⏻ "
 		if was_ac or power <= 10 then
 			wibox.emit_signal("battery_widget::show")
 			was_ac = false
 		end
 	else
-		widget.inner.label.text = "🞦 "
+		widget.inner.iconlabel.text = "🞦 "
 		was_ac = true
 	end
 
-	widget.inner.bar.percent.text = power_s
-	widget.inner.bar.innerbar.value = power
+	widget.inner.innerbar.barlabel.text = power_s
+	widget.inner.innerbar.barbox.bar.value = power
 end, final_widget)
