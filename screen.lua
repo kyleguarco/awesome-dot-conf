@@ -2,7 +2,6 @@
 -- Loaded in rc.lua to set up all the screens connected to the computer
 local awful = require('awful')
 local gears = require('gears')
-local wibox = require('wibox')
 local beautiful = require('beautiful')
 
 local battery_popup = require("boxes.battery_popup")
