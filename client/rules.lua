@@ -5,8 +5,6 @@ local clientkeys = require("keys.clientkeys")
 local clientbuttons = require("keys.clientbuttons")
 
 local default_properties = {
-    -- border_width = beautiful.border_width,
-    -- border_color = beautiful.border_normal,
     focus = awful.client.focus.filter,
     raise = true,
     keys = clientkeys,
@@ -24,7 +22,7 @@ local rules = {
         properties = default_properties
     },
 
-    {	rule = { class = "URxvt" },
+    {	rule = { class = { "URxvt", "Alacritty" } },
     	properties = {
             size_hints_honor = false
         }
@@ -64,6 +62,12 @@ local rules = {
                 "Godot",
 				"Godot_Engine",
 				"vncviewer",
+                -- ImageMagick "display" tool
+                "display-im6.q16",
+                "Display-im6.q16",
+                -- GCR-Viewer (X11 authentication)
+                "gcr-prompter",
+                "Gcr-prompter",
             },
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.

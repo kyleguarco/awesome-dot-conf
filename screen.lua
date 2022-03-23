@@ -2,14 +2,10 @@
 -- Loaded in rc.lua to set up all the screens connected to the computer
 local awful = require('awful')
 local gears = require('gears')
-local naughty = require('naughty')
+local wibox = require('wibox')
 local beautiful = require('beautiful')
 
--- `w`: A wibox; `show_only`: Only triggers the visibility signals
-local _manage_wibox = require("util.manage_wibox").manage_wibox
-
--- `s`: The screen which this wibox will be drawn onto
-local _taskbar_wibar_new = require("widgets.taskbar")
+local battery_popup = require("boxes.battery_popup")
 
 -- Sets the wallpaper on screen `s`
 local function set_wallpaper(s)
@@ -28,10 +24,10 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
+	s.battery_popup = battery_popup
+
     -- Each screen has its own tag table.
     awful.tag({ "I", "II", "III", "IV" }, s, awful.layout.layouts[1])
-
-    s.taskbar = _taskbar_wibar_new(s)
 end)
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)

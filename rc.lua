@@ -24,11 +24,6 @@ end
 require("defaults")
 -- }}}
 
--- {{{ Load global widget object
--- Used to connect signals to widgets.
-widget = gears.object {}
--- }}}
-
 -- {{{ Utility loader
 -- Load various utility functions globally (see `util/init.lua`)
 require("util")

@@ -2,10 +2,14 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local gears = require('gears')
 local naughty = require('naughty')
+local wibox = require('wibox')
 local hotkeys_popup = require('awful.hotkeys_popup.widget')
 
 -- `action`: "set" or "get"; `perc`: Used on "set", sets the volume
 local _update_volume = require("util.update_volume")
+
+-- `action`: "toggle" or "status"
+local _update_player = require("util.update_player")
 
 -- Modifiers
 local modkeys = require("keys.modkey")
@@ -34,11 +38,7 @@ local globalkeys = gears.table.join(
 	awful.key({ mod       }, "w", function() awful.spawn("xscreensaver-command -lock") end,
 		meta("awesome", "lock the user")),
     -- HUD
-    awful.key({ mod       }, "Escape",
-        function()
-            widget:emit_signal("update")
-            widget:emit_signal("show")
-        end,
+    awful.key({ mod       }, "Escape", function() wibox.emit_signal("show_all") end,
         meta("awesome", "show menu")),
 
     awful.key({ mod       }, "Left", awful.tag.viewprev,
@@ -82,7 +82,7 @@ local globalkeys = gears.table.join(
         end,
         meta("client", "restore minimized")),
 
-    awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -show window -show-icons") end,
+    awful.key({ mod, ctrl }, "z", function() awful.spawn("rofi -modi window -show window -show-icons") end,
         meta("client", "Show the rofi window switcher")),
 
     awful.key({ mod, ctrl }, "l",     function() awful.tag.incmwfact(0.05) end,
@@ -114,22 +114,31 @@ local globalkeys = gears.table.join(
         meta("screen", "take a screenshot and copy to memory")),
 
 	-- Standard program
-    awful.key({ mod       }, "Return", function() awful.spawn("urxvt") end,
-        meta("launcher", "open a terminal")),
+    awful.key({ mod       }, "Return", function() awful.spawn("alacritty") end,
+        meta("launcher", "open a terminal (alacritty)")),
+
+	awful.key({ mod, alt  }, "Return", function() awful.spawn("urxvt") end,
+		meta("launcher", "open a terminal (urxvt)")),
 
     -- Prompt
-    awful.key({ mod       }, "r", function() awful.spawn("rofi -show drun -show-icons") end,
+    awful.key({ mod       }, "r", function() awful.spawn("rofi -modi drun,window -show drun -show-icons") end,
         meta("launcher", "rofi run prompt")),
 
     -- Volume Keys
     awful.key({           }, "XF86AudioRaiseVolume", function() _update_volume("set", "5%+") end,
         meta("audio", "raise volume")),
-
     awful.key({           }, "XF86AudioLowerVolume", function() _update_volume("set", "5%-") end,
         meta("audio", "lower volume")),
-
     awful.key({           }, "XF86AudioMute", function() _update_volume("set", "toggle") end,
-        meta("audio", "mute"))
+        meta("audio", "mute")),
+
+    -- Media Player Controls
+    awful.key({           }, "XF86AudioPlay", function() _update_player("toggle") end,
+        meta("audio", "toggle play/pause")),
+    awful.key({           }, "XF86AudioNext", function() _update_player("next") end,
+        meta("audio", "next track")),
+    awful.key({           }, "XF86AudioPrev", function() _update_player("prev") end,
+        meta("audio", "previous track"))
 )
 
 -- Bind all key numbers to tags.

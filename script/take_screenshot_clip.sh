@@ -10,7 +10,7 @@ maim -um 4 -s > /tmp/"${SCRNAME}"
 if [[ $? != 0 ]]; then
 	notify-send "Screenshot" "Cancelled"
 	rm ~/"${SCRNAME}"
-	exit -1
+	exit 1
 fi
 
 xclip -sel clip -target image/png -i /tmp/"${SCRNAME}"
