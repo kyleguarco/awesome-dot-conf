@@ -1,5 +1,6 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
+local ruled = require('ruled')
 local naughty = require('naughty')
 
 -- {{{ Handle runtime errors after startup
@@ -20,19 +21,16 @@ end
 
 -- {{{ Load default options for awesome libraries
 --- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.append_default_layouts {
-    awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.floating,
-    -- awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
-}
+tag.connect_signal("request::default_layouts", function()
+	awful.layout.append_default_layouts {
+	    awful.layout.suit.max,
+	    awful.layout.suit.tile,
+	    awful.layout.suit.tile.left,
+	    awful.layout.suit.tile.bottom,
+	    awful.layout.suit.tile.top,
+	    awful.layout.suit.floating,
+	} 
+end)
 -- }}}
 
 -- {{{ Utility loader

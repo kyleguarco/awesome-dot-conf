@@ -3,7 +3,8 @@ local beautiful = require('beautiful')
 local gears = require('gears')
 local naughty = require('naughty')
 local wibox = require('wibox')
-local hotkeys_popup = require('awful.hotkeys_popup.widget')
+local hotkeys_popup = require('awful.hotkeys_popup')
+require("awful.hotkeys_popup.keys")
 
 -- `action`: "set" or "get"; `perc`: Used on "set", sets the volume
 local _update_volume = require("util.update_volume")
@@ -29,7 +30,7 @@ local function notify(title, msg)
 end
 
 local globalkeys = gears.table.join(
-    awful.key({ mod,      }, "s", function() hotkeys_popup:show_help() end,
+    awful.key({ mod,      }, "s", hotkeys_popup.show_help,
         meta("awesome", "show help")),
     awful.key({ mod, ctrl }, "r", awesome.restart,
         meta("awesome", "reload awesome")),
