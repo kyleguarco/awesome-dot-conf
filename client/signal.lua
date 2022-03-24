@@ -1,3 +1,6 @@
+local awesome = awesome
+local client = client
+
 local awful = require('awful')
 require('awful.autofocus')
 

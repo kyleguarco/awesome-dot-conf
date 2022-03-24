@@ -1,6 +1,5 @@
 local awful = require('awful')
 local ruled = require('ruled')
-local beautiful = require('beautiful')
 
 local default_properties = {
     focus = awful.client.focus.filter,
@@ -30,33 +29,7 @@ ruled.client.connect_signal("request::rules", function()
         }
     }
 
-    -- add_rule {
-	-- 	id = "enable_titlebar",
-	-- 	rule_any = { type = { "normal" } },
-    --     properties = {
-    --         titlebars_enabled = true
-    --     }
-    -- },
-
-    -- Floating clients.
-    -- add_rule {
-	-- 	id = "floating",
-	-- 	rule_any = { type = { "floating" } },
-    --     properties = {
-    --         titlebars_enabled = false
-    --     }
-    -- }
-
-    -- Disable titlebars for the terminal
-    -- add_rule {
-	-- 	id = "terminal_titlebar",
-	-- 	rule = { class = "URxvt" },
-    --     properties = {
-    --         titlebars_enabled = false
-    --     }
-    -- },
-
-    add_rule {
+	add_rule {
 		id = "force_floating_dialog",
 		rule_any = {
 			type = { "dialog" },

@@ -1,3 +1,7 @@
+-- keys/globalkeys.lua (global scope)
+-- Initializes hotkey assignments.
+local awesome = awesome
+
 local awful = require('awful')
 local beautiful = require('beautiful')
 local naughty = require('naughty')

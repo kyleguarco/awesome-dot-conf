@@ -1,7 +1,8 @@
 -- screen.lua (global scope)
 -- Loaded in rc.lua to set up all the screens connected to the computer
+local screen = screen
+
 local awful = require('awful')
-local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 

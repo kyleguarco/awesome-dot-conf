@@ -1,3 +1,5 @@
+-- keys/globalbuttons.lua (local scope)
+-- Initializes mouse functionality
 local awful = require('awful')
 
 -- Modifiers
