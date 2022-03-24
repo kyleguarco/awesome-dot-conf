@@ -1,14 +1,10 @@
 local awful = require('awful')
+local ruled = require('ruled')
 local beautiful = require('beautiful')
-
-local clientkeys = require("keys.clientkeys")
-local clientbuttons = require("keys.clientbuttons")
 
 local default_properties = {
     focus = awful.client.focus.filter,
     raise = true,
-    keys = clientkeys,
-    buttons = clientbuttons,
     screen = awful.screen.preferred,
     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
     maximized_horizontal = false,
@@ -16,39 +12,54 @@ local default_properties = {
     maximized = false
 }
 
-local rules = {
-    -- All clients will match this rule.
-    {   rule = { },
-        properties = default_properties
-    },
+local add_rule = ruled.client.append_rule
 
-    {	rule = { class = { "URxvt", "Alacritty" } },
+ruled.client.connect_signal("request::rules", function()
+    -- All clients will match this rule.
+    add_rule {
+		id = "global",
+		rule = { },
+        properties = default_properties
+    }
+
+    add_rule {
+		id = "terminal_size_honor",
+		rule = { class = { "URxvt", "Alacritty" } },
     	properties = {
             size_hints_honor = false
         }
-    },
+    }
 
-    {   rule_any = { type = { "normal" } },
-        properties = {
-            titlebars_enabled = true
-        }
-    },
+    -- add_rule {
+	-- 	id = "enable_titlebar",
+	-- 	rule_any = { type = { "normal" } },
+    --     properties = {
+    --         titlebars_enabled = true
+    --     }
+    -- },
 
     -- Floating clients.
-    {   rule_any = { type = { "floating" } },
-        properties = {
-            titlebars_enabled = false
-        }
-    },
+    -- add_rule {
+	-- 	id = "floating",
+	-- 	rule_any = { type = { "floating" } },
+    --     properties = {
+    --         titlebars_enabled = false
+    --     }
+    -- }
 
     -- Disable titlebars for the terminal
-    {   rule = { class = "URxvt" },
-        properties = {
-            titlebars_enabled = false
-        }
-    },
+    -- add_rule {
+	-- 	id = "terminal_titlebar",
+	-- 	rule = { class = "URxvt" },
+    --     properties = {
+    --         titlebars_enabled = false
+    --     }
+    -- },
 
-    {   rule_any = {
+    add_rule {
+		id = "force_floating_dialog",
+		rule_any = {
+			type = { "dialog" },
             instance = {
                 "DTA",  -- Firefox addon DownThemAll.
                 "copyq",  -- Includes session name in class.
@@ -94,14 +105,5 @@ local rules = {
             floating = true,
             placement = awful.placement.centered
         },
-    },
-
-    -- Popup dialogs
-    {   rule_any = { type = { "dialog" } },
-        properties = {
-            placement = awful.placement.centered
-        }
     }
-}
-
-return rules
+end)

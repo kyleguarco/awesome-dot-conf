@@ -51,13 +51,13 @@ require("screen")
 -- }}}
 
 -- {{{ Global input bindings
-root.keys(require("keys.globalkeys"))
-root.buttons(require("keys.globalbuttons"))
+require("keys.globalkeys")
+require("keys.globalbuttons")
 -- }}}
 
 -- {{{ Client initialization
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = require("client.rules")
+-- Rules to apply to new clients.
+require("client.rules")
 
 -- Connects clients to appropriate signals
 require("client.signal")

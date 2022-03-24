@@ -1,6 +1,9 @@
 local awful = require('awful')
 require('awful.autofocus')
 
+local clientkeys = require("keys.clientkeys")
+local clientbuttons = require("keys.clientbuttons")
+
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
@@ -20,3 +23,10 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", { raise = false })
 end)
 
+client.connect_signal("request::default_keybindings", function()
+	awful.keyboard.append_client_keybindings(clientkeys)
+end)
+
+client.connect_signal("request::default_mousebindings", function()
+	awful.mouse.append_client_mousebindings(clientbuttons)
+end)

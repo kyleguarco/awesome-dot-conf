@@ -27,7 +27,10 @@ end)
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
-	awful.tag({ "I", "II", "III", "IV" }, s, awful.layout.layouts[1])
+	awful.tag(
+		{ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" }, 
+		s, awful.layout.layouts[1]
+	)
 	
 	s.battery_popup = battery_popup
 end)
