@@ -18,6 +18,17 @@ local percent_widget = wibox.widget {
 }
 
 local bar_widget = wibox.widget {
+	color = {
+		type = "linear",
+		from = { 0, 50 },
+		to = { 50, 100 },
+		stops = {
+			{ 0, beautiful.color2 },
+			{ 0.25, beautiful.color5 },
+			{ 0.5, beautiful.color11 },
+			{ 1, beautiful.color12 }
+		}
+	},
 	background_color = beautiful.fg,
 	max_value = 100,
 	value = 0,
@@ -66,6 +77,6 @@ return awful.widget.watch(script("get_power"), 4, function(widget, output)
 		was_ac = true
 	end
 
-	widget.inner.innerbar.barlabel.text = power_s
+	widget.inner.innerbar.barlabel.markup = "<span foreground='"..beautiful.bg.."'>"..power_s.."</span>"
 	widget.inner.innerbar.barbox.bar.value = power
 end, final_widget)
