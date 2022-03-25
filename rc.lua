@@ -21,6 +21,11 @@ do
 end
 -- }}}
 
+-- {{{ Utility loader
+-- Load various utility functions globally (see `util/init.lua`)
+require("util")
+-- }}}
+
 -- {{{ Load default options for awesome libraries
 --- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
@@ -35,11 +40,6 @@ tag.connect_signal("request::default_layouts", function()
 end)
 -- }}}
 
--- {{{ Utility loader
--- Load various utility functions globally (see `util/init.lua`)
-require("util")
--- }}}
-
 -- {{{ Theme initialization
 -- Themes define colours, icons, font and wallpapers.
 -- Required as a global table for on-the-fly changes with 'awesome-client'
@@ -52,11 +52,6 @@ beautiful.init(theme)
 require("screen")
 -- }}}
 
--- {{{ Global input bindings
-require("keys.globalkeys")
-require("keys.globalbuttons")
--- }}}
-
 -- {{{ Client initialization
 -- Rules to apply to new clients.
 require("client.rules")
@@ -64,3 +59,9 @@ require("client.rules")
 -- Connects clients to appropriate signals
 require("client.signal")
 -- }}}
+
+-- {{{ Global input bindings
+require("keys.globalkeys")
+require("keys.globalbuttons")
+-- }}}
+

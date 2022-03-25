@@ -7,6 +7,7 @@ local wibox = require('wibox')
 local beautiful = require('beautiful')
 
 local battery_popup = require("boxes.battery_popup")
+local volume_popup = require("boxes.volume_popup")
 
 screen.connect_signal("request::wallpaper", function(s)
 	awful.wallpaper {
@@ -34,4 +35,5 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	)
 	
 	s.battery_popup = battery_popup
+	s.volume_popup = volume_popup
 end)

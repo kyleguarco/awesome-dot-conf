@@ -12,18 +12,8 @@ local percent_widget = wibox.widget {
 }
 
 local bar_widget = wibox.widget {
-	color = {
-		type = "linear",
-		from = { 0, 50 },
-		to = { 50, 100 },
-		stops = {
-			{ 0, beautiful.color2 },
-			{ 0.25, beautiful.color5 },
-			{ 0.5, beautiful.color11 },
-			{ 1, beautiful.color12 }
-		}
-	},
-	background_color = beautiful.fg,
+	color = beautiful.fg,
+	background_color = beautiful.bg,
 	max_value = 100,
 	value = 0,
 	shape = gears.shape.rounded_bar,
@@ -47,23 +37,23 @@ local final_widget = wibox.widget {
 	widget = wibox.container.margin
 }
 
-local was_ac = false
+local function update_widget(lefton, leftv)
+	local statuscolor = lefton == "on" and beautiful.color4 or beautiful.color8
 
-return awful.widget.watch(script("get_power"), 4, function(widget, output)
+	final_widget.inner.barlabel.markup = 
+		"<span foreground='"..statuscolor.."'>"
+		..lefton.." || "..leftv..
+		"</span>"
+	final_widget.inner.barbox.bar.value = tonumber(leftv)
+
+	wibox.emit_signal("volume_widget::changed", lefton, leftv)
+end
+
+wibox.connect_signal("volume_widget::request::new_volume", update_widget)
+
+-- Just to make sure it updates periodically
+return awful.widget.watch(script("volume", "get", "Master"), 20, function(widget, output)
 	local data = gears.string.split(output, ";")
-	local power_s = data[1]
-	local power = tonumber(power_s)
-	local is_ac = data[2] == "1"
-	
-	if not is_ac and was_ac or power <= 10 then
-		wibox.emit_signal("battery_widget::show")
-		was_ac = false
-	else
-		was_ac = true
-	end
 
-	widget.inner.barlabel.markup = "<span foreground='"..beautiful.bg.."'>"..power_s.."</span>"
-	widget.inner.barbox.bar.value = power
-
-	wibox.emit_signal("battery_widget::changed", is_ac, power)
+	update_widget(data[1], data[2])
 end, final_widget)

@@ -19,7 +19,7 @@ local battery_popup = awful.popup {
 local hide_timer = gears.timer {
 	timeout = 2,
 	callback = function()
-		wibox.emit_signal("battery::hide")
+		wibox.emit_signal("battery_popup::hide")
 	end,
 	single_shot = true
 }
@@ -29,15 +29,15 @@ battery_popup:connect_signal("press", function()
 end)
 
 wibox.connect_signal("show_all", function()
-	wibox.emit_signal("battery::show")
+	wibox.emit_signal("battery_popup::show")
 end)
 
-wibox.connect_signal("battery::show", function()
+wibox.connect_signal("battery_popup::show", function()
 	battery_popup.visible = true
 	hide_timer:again()
 end)
 
-wibox.connect_signal("battery::hide", function()
+wibox.connect_signal("battery_popup::hide", function()
 	battery_popup.visible = false
 end)
 
