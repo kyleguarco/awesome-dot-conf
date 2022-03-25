@@ -112,10 +112,12 @@ awful.keyboard.append_global_keybindings {
 			meta("screen", "focus next screen")),
 
 	-- Screenshots
-	awful.key({ mod		  }, "Print", function() awful.spawn.easy_async(script("take_screenshot")) end,
+	awful.key({ mod		  }, "Print", function() awful.spawn.easy_async(script("screenshot")) end,
 		meta("screen", "take a screenshot")),
-	awful.key({ mod, alt  }, "Print", function() awful.spawn.easy_async(script("take_screenshot_clip")) end,
+	awful.key({ mod, alt  }, "Print", function() awful.spawn.easy_async(script("screenshot", "-c")) end,
 		meta("screen", "take a screenshot and copy to memory")),
+	awful.key({ mod, ctrl }, "Print", function() awful.spawn.easy_async(script("screenshot", "-s", "-c")) end,
+		meta("screen", "take a selection screenshot and copy to memory")),
 
 	-- Standard program
 	awful.key({ mod		  }, "Return", function() awful.spawn("alacritty") end,
