@@ -6,7 +6,7 @@ SAVEPATH="$HOME"
 SAVEMSG="Saved to ${SCRNAME}"
 COPY=1
 
-MAIMCMD='maim -um 4'
+SCRCMD="import -window root"
 
 function sendnote() {
 	notify-send "Screenshot" "$1"
@@ -15,7 +15,7 @@ function sendnote() {
 while getopts ":sc" opt; do
 	case $opt in
 		s|select)
-			MAIMCMD+=' -s'
+			SCRCMD="import"
 			;;
 		c|clip)
 			COPY=0
@@ -28,17 +28,18 @@ done
 shift $((OPTIND-1))
 
 SAVEPATH="${SAVEPATH}/${SCRNAME}"
-$MAIMCMD > $SAVEPATH
-
-if [[ $COPY ]]; then
-	xclip -sel clip -t image/png < $SAVEPATH
-fi
+SCRCMD+=" ${SAVEPATH}"
+$SCRCMD
 
 SCRSTATUS=$?
 if [[ $SCRSTATUS != 0 ]]; then
 	sendnote "Either the screenshot was cancelled or there was an error. ER${SCRSTATUS}"
-	rm ~/"${SCRNAME}"
+	rm "$SAVEPATH"
 	exit 1
+fi
+
+if [[ $COPY ]]; then
+	xclip -sel clip -t image/png < $SAVEPATH
 fi
 
 sendnote "$SAVEMSG"
