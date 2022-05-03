@@ -44,7 +44,7 @@ local theme = {
 	fg							= colordb.foreground,
 
 	-- Custom theme variables
-	transparent					= colordb.background .. "00",
+	transparent					= colordb.background .. "25",
 }
 
 -- Copy 'colordb' into 'theme'

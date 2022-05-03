@@ -39,10 +39,11 @@ awful.keyboard.append_global_keybindings {
 		meta("awesome", "reload awesome")),
 	awful.key({ mod, shft }, "q", awesome.quit,
 		meta("awesome", "quit awesome")),
-	awful.key({ mod		  }, "w", function() awful.spawn("xscreensaver-command -lock") end,
+	-- Controls xsecurelock via xss-lock
+	awful.key({ mod		  }, "w", function() awful.spawn("xset s activate") end,
 		meta("awesome", "lock the user")),
 	-- HUD
-	awful.key({ mod		  }, "Escape", function() wibox.emit_signal("show_all") end,
+	awful.key({ mod		  }, "Escape", function() wibox.emit_signal("floatbar::toggle") end,
 		meta("awesome", "show menu")),
 
 	awful.key({ mod		  }, "Left", awful.tag.viewprev,

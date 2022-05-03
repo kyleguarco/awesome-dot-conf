@@ -6,8 +6,9 @@ local awful = require('awful')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
-local battery_popup = require("boxes.battery_popup")
-local volume_popup = require("boxes.volume_popup")
+-- local battery_popup = require("boxes.battery_popup")
+-- local volume_popup = require("boxes.volume_popup")
+local _topbar = require("boxes.topbar")
 
 screen.connect_signal("request::wallpaper", function(s)
 	awful.wallpaper {
@@ -30,10 +31,9 @@ end)
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Each screen has its own tag table.
 	awful.tag(
-		{ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" }, 
+		{ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" },
 		s, awful.layout.layouts[1]
 	)
-	
-	s.battery_popup = battery_popup
-	s.volume_popup = volume_popup
+
+	s.topbar = _topbar()
 end)
