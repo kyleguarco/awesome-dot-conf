@@ -132,11 +132,11 @@ awful.keyboard.append_global_keybindings {
 		meta("launcher", "rofi run prompt")),
 
 	-- Volume Keys
-	awful.key({			  }, "XF86AudioRaiseVolume", function() update_volume("set", "5%+") end,
+	awful.key({			  }, "XF86AudioRaiseVolume", function() update_volume("set", "+5") end,
 		meta("audio", "raise volume")),
-	awful.key({			  }, "XF86AudioLowerVolume", function() update_volume("set", "5%-") end,
+	awful.key({			  }, "XF86AudioLowerVolume", function() update_volume("set", "-5") end,
 		meta("audio", "lower volume")),
-	awful.key({			  }, "XF86AudioMute", function() update_volume("set", "toggle") end,
+	awful.key({			  }, "XF86AudioMute", function() update_volume("toggle", "+0") end,
 		meta("audio", "mute")),
 
 	-- Media Player Controls

@@ -39,13 +39,15 @@ local function new()
 	}
 
 	local function update_widget(lefton, leftv)
-		local statuscolor = lefton == "on" and beautiful.color4 or beautiful.color8
+		local on = lefton == "1"
+		local statuscolor = on and beautiful.color12 or beautiful.color3
+		local status = on and "ON" or "OFF"
 
 		final_widget.inner.barlabel.markup =
-			"<span foreground='"..statuscolor.."'>"
-			..lefton.." || "..leftv..
-			"</span>"
+			"<span foreground='"..beautiful.fg.."'>("
+			..status..") "..leftv.."</span>"
 		final_widget.inner.barbox.bar.value = tonumber(leftv)
+		final_widget.inner.barbox.bar.color = statuscolor
 
 		wibox.emit_signal("player::changed", lefton, leftv)
 	end
@@ -53,7 +55,7 @@ local function new()
 	wibox.connect_signal("player::request::volume", update_widget)
 
 	-- Just to make sure it updates periodically
-	return awful.widget.watch(script("volume", "get", "Master"), 20, function(widget, output)
+	return awful.widget.watch(script("volume", "get"), 20, function(widget, output)
 		local data = gears.string.split(output, ";")
 
 		update_widget(data[1], data[2])

@@ -1,16 +1,31 @@
 #!/bin/bash
 
 # Both cases return the set volume
-# Change 'print $4' to 'print $5' if the media server in use is Pulse
 case $1 in
+	"toggle")
+		pamixer -t
+	;;
 	"set")
-	# $2: Sink; $3: dB (or %)
-	amixer set $2 $3 | awk '$0~/%/{print $6"\;"; print $5"\;"}' 2< /dev/null | tr -d '[]%\n' ; echo
-	# Output: LEFTON;LEFT;RIGHTON;RIGHT;
+	# $3: dB (or %)
+	case ${2::1} in
+		"+")
+		pamixer -i ${2/+/}
+		;;
+		"-")
+		pamixer -d ${2/-/}
+		;;
+		*)
+		pamixer --set-volume $2
+		;;
+	esac
 	;;
 	"get")
-	# First argument is sink
-	amixer get $2 | awk '$0~/%/{print $6"\;"; print $5"\;"}' 2< /dev/null | tr -d '[]%\n' ; echo
-	# Output: LEFTON;LEFT;RIGHTON;RIGHT;
 	;;
 esac
+
+[[ $(pamixer --get-mute) == "true" ]]
+ISMUTE=$(echo $?)
+VOL=$(pamixer --get-volume)
+echo "$ISMUTE;$VOL;"
+# Output: ON;VOL
+

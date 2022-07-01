@@ -7,13 +7,14 @@ local default_args = {
 	align = "center",
 	shape = gears.shape.rounded_rect,
 	bg = beautiful.bg,
+	fg = beautiful.fg,
 }
 
 local function new(args)
 	args = gears.table.crush(default_args, args or {})
 
 	local textclock_widget = wibox.widget {
-		format = args.format,
+		format = "<span foreground=\""..args.fg.."\">"..args.format.."</span>",
 		align = args.align,
 		widget = wibox.widget.textclock,
 	}

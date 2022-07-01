@@ -1,3 +1,6 @@
+-- boxes/topbar.lua (local scope)
+-- Sets up the "taskbar" at the top of the screen
+
 local awful = require('awful')
 local gears = require('gears')
 local beautiful = require('beautiful')
@@ -16,6 +19,8 @@ local function new()
 	floatbar:setup {
 		_battery_widget(),
 		_volume_widget(),
+
+		wibox.widget.systray,
 		_textclock_widget(),
 		spacing = _dpi(10),
 		layout = wibox.layout.flex.horizontal,

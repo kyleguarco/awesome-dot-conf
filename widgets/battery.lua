@@ -13,16 +13,7 @@ local function new()
 	}
 
 	local bar_widget = wibox.widget {
-		color = {
-			type = "linear",
-			from = { 0, 50 },
-			to = { 50, 100 },
-			stops = {
-				{ 0, beautiful.color2 },
-				{ 0.5, beautiful.color3 },
-				{ 1, beautiful.color6 }
-			}
-		},
+		color = beautiful.color2,
 		background_color = beautiful.fg,
 		max_value = 100,
 		value = 0,
@@ -53,14 +44,11 @@ local function new()
 		local power = tonumber(power_s)
 		local is_ac = data[2] == "1"
 
-		color = beautiful.color15
 		if power <= 10 and not is_ac then
 			wibox.emit_signal("battery_widget::critical")
-		else
-			color = beautiful.bg
 		end
 
-		widget.inner.barlabel.markup = "<span foreground='"..color.."'>"..power_s.."</span>"
+		widget.inner.barlabel.markup = "<span foreground='"..beautiful.bg.."'> 🔋"..power_s.."</span>"
 		widget.inner.barbox.bar.value = power
 
 		wibox.emit_signal("battery_widget::changed", is_ac, power)

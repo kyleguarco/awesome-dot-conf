@@ -1,3 +1,6 @@
+-- boxes/floatbar.lua (local scope)
+-- A customizable floating bar
+
 local awful = require('awful')
 local gears = require('gears')
 local beautiful = require('beautiful')
