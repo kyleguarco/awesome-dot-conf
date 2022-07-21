@@ -14,7 +14,7 @@ local function new()
 
 	local bar_widget = wibox.widget {
 		color = beautiful.fg,
-		background_color = beautiful.bg,
+		background_color = beautiful.fg,
 		max_value = 100,
 		value = 0,
 		shape = gears.shape.rounded_bar,
@@ -44,7 +44,7 @@ local function new()
 		local status = on and "ON" or "OFF"
 
 		final_widget.inner.barlabel.markup =
-			"<span foreground='"..beautiful.fg.."'>("
+			"<span foreground='"..beautiful.bg.."'>("
 			..status..") "..leftv.."</span>"
 		final_widget.inner.barbox.bar.value = tonumber(leftv)
 		final_widget.inner.barbox.bar.color = statuscolor
